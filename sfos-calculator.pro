@@ -25,7 +25,11 @@ DISTFILES += qml/sfos-calculator.qml \
     rpm/sfos-calculator.spec \
     rpm/sfos-calculator.yaml \
     translations/*.ts \
-    sfos-calculator.desktop
+    sfos-calculator.desktop \
+    qml/pages/BasicModePage.qml \
+    qml/pages/EngineeringModePage.qml \
+    qml/assets/Display.qml \
+    qml/assets/KeyBrdBtn.qml
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
 
