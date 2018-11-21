@@ -13,8 +13,16 @@ Page {
         contentHeight: page.height
         PullDownMenu{
             MenuItem{
-                text: qsTr("History")
+                text: qsTr("Engineering mode")
                 onClicked: pageStack.push(Qt.resolvedUrl("EngineeringModePage.qml"));
+            }
+            MenuItem{
+                text: qsTr("Build a graph")
+                onClicked: pageStack.push(Qt.resolvedUrl("GraphBuilder.qml"));
+            }
+            MenuItem{
+                text: qsTr("History")
+                onClicked: pageStack.push(Qt.resolvedUrl("History.qml"));
             }
         }
     }
@@ -24,9 +32,9 @@ Page {
         title: qsTr("Basic Mode")
 
         anchors {
-            left: parent.top
-            right: parent.bottom
-            top: parent.right
+            left: parent.left
+            right: parent.right
+            top: parent.top
         }
     }
 
