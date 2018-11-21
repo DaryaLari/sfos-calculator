@@ -20,7 +20,7 @@ Column {
     TextArea {
         id: equation
         readOnly: true
-        text: qsTr("f(x)=%1").arg("<Expression>")
+        text: qsTr("f(x)=%1").arg("x+5-6*(x^6)-sin(x)+18*x-6-7-8-9-3-x")
         color: Theme.primaryColor
         font.pixelSize: Theme.fontSizeLarge
         anchors {
