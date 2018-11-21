@@ -50,6 +50,13 @@
     </message>
 </context>
 <context>
+    <name>EngineeringModePage</name>
+    <message>
+        <source>Engineering Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FirstPage</name>
     <message>
         <source>Show Page 2</source>

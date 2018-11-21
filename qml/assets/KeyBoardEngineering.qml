@@ -47,12 +47,17 @@ Item {
         KeyBrdBtn { id: btn7; text: "7"; onClicked: Calculator.inputNum(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight}
         KeyBrdBtn { id: btn8; text: "8"; onClicked: Calculator.inputNum(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight}
         KeyBrdBtn { id: btn9; text: "9"; onClicked: Calculator.inputNum(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight}
-        KeyBrdBtn { id: btnX; text: "x"; onClicked: Calculator.inputNum(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight}
+        Item {id: equalBtnSpace; width: buttons.buttonWidth; height: buttons.buttonHeight}
 
         KeyBrdBtn { id: btnExp; text: "e"; onClicked: Calculator.doOperation(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight}
         KeyBrdBtn { id: btnPercent; text: "%"; onClicked: Calculator.doOperation(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight}
         KeyBrdBtn { id: btn0; text: "0"; onClicked: Calculator.inputNum(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight}
         KeyBrdBtn { id: btnDot; text: "."; onClicked: Calculator.dot(); width: buttons.buttonWidth; height: buttons.buttonHeight}
-        KeyBrdBtn { id: btnEqual; text: "Build"; onClicked: Calculator.doOperation(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight;}
+    }
+    KeyBrdBtn { id: btnEqual; text: "="; onClicked: Calculator.doOperation(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight * 2
+        anchors {
+            right: buttons.right
+            bottom: buttons.bottom
+        }
     }
 }
