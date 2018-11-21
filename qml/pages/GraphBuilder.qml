@@ -7,21 +7,9 @@ Page {
 
     allowedOrientations: Orientation.All
     anchors.fill: parent
-
-    SilicaListView{
-        anchors.fill: parent
-        contentHeight: page.height
-        PullDownMenu{
-            MenuItem{
-                text: qsTr("History")
-                onClicked: pageStack.push(Qt.resolvedUrl("EngineeringModePage.qml"));
-            }
-        }
-    }
-
     PageHeader {
         id: header
-        title: qsTr("Basic Mode")
+        title: qsTr("Graph")
 
         anchors {
             left: parent.left
@@ -37,12 +25,12 @@ Page {
         anchors.top: header.bottom
 
 
-        Display {
+        DisplayGraph {
             id: displayP
             width: parent.width
         }
 
-        KeyBoard {
+        KeyBoardGraph {
             width: parent.width
             height: parent.height - displayP.height
         }
