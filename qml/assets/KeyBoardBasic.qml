@@ -4,15 +4,15 @@ import "../assets"
 Item {
     Grid {
         id: buttons
-        spacing: 0
+        spacing: 1
         columns: 4
         rows: 5
 
         width: parent.width
         height: parent.height
 
-        property double buttonWidth: parent.width / 4
-        property double buttonHeight: parent.height / 5
+        property double buttonWidth: (parent.width - 3) / 4
+        property double buttonHeight: (parent.height - 4) / 5
 
 
         KeyBrdBtn { id: btnAC; text: "AC";onClicked: Calculator.ac(); width: buttons.buttonWidth; height: buttons.buttonHeight}
@@ -35,7 +35,7 @@ Item {
         KeyBrdBtn { id: btn0; text: "0"; onClicked: Calculator.inputNum(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight}
         KeyBrdBtn { id: btnDot; text: "."; onClicked: Calculator.dot(); width: buttons.buttonWidth; height: buttons.buttonHeight}
     }
-    KeyBrdBtn { id: btnEqual; text: "="; onClicked: Calculator.doOperation(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight * 2
+    KeyBrdBtn { id: btnEqual; text: "="; onClicked: Calculator.doOperation(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight * 2 + 1
         anchors {
             right: buttons.right
             bottom: buttons.bottom

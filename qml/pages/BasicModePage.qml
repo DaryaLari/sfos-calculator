@@ -50,7 +50,7 @@ Page {
             width: parent.width
         }
 
-        KeyBoard {
+        KeyBoardBasic {
             width: parent.width
             height: parent.height - displayP.height
         }
