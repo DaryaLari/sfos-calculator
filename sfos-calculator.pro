@@ -35,7 +35,13 @@ DISTFILES += qml/sfos-calculator.qml \
     qml/assets/DisplayGraph.qml \
     qml/pages/Graph.qml \
     qml/assets/KeyBoardEngineering.qml \
-    qml/assets/KeyBoardBasic.qml
+    qml/assets/KeyBoardBasic.qml \
+    js/Calculator.js
+
+OTHER_FILES += js/*
+js.files = js/*
+js.path = /usr/share/$$TARGET/js
+INSTALLS += js
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
 
