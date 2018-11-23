@@ -84,7 +84,12 @@ function calcResult(){
         stringExpression = stringExpression.slice(0, -1) // replace last char to op
     }
     isDecimal = false
-    result = stringExpression
+    var expr = stringExpression
+//    while(!/^(\d+(.\d+)?)$/.test(expr)){
+//        expr = expr.replace(/(\d+(.\d+)?)/, function(match) {return eval(match)})
+//    }
+
+    result = eval(expr)
     display.update(stringExpression, result)
 }
 

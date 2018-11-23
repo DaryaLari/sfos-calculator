@@ -1,7 +1,6 @@
 import QtQuick 2.2
 import Sailfish.Silica 1.0
 import "../assets"
-//import "../../js/Calculator.js" as Calculator
 
 Page {
     id: page
