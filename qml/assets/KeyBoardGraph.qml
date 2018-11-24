@@ -53,6 +53,6 @@ Item {
         KeyBrdBtn { id: btnPercent; text: "%"; onClicked: Calculator.doOperation(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight}
         KeyBrdBtn { id: btn0; text: "0"; onClicked: Calculator.inputNum(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight}
         KeyBrdBtn { id: btnDot; text: "."; onClicked: Calculator.dot(); width: buttons.buttonWidth; height: buttons.buttonHeight}
-        KeyBrdBtn { id: btnEqual; text: "Build"; onClicked: Calculator.doOperation(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight;}
+        KeyBrdBtn { id: btnEqual; text: "Build"; onClicked: pageStack.push(Qt.resolvedUrl("../pages/Graph.qml")); width: buttons.buttonWidth; height: buttons.buttonHeight;}
     }
 }

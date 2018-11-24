@@ -36,7 +36,8 @@ DISTFILES += qml/sfos-calculator.qml \
     qml/assets/DisplayGraph.qml \
     qml/pages/Graph.qml \
     qml/assets/KeyBoardEngineering.qml \
-    qml/pages/d3.js
+    qml/pages/d3.js \
+    qml/assets/GraphCanvas.qml
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
 

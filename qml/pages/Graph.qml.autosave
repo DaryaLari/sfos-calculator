@@ -53,7 +53,7 @@ Page {
           .range([height - bottomMargin, 0])
           .domain([minY, maxY]);
 
-          var line = lineFunction(xScale, yScale, context);
+          var line = x(xScale, yScale, context);
 
 
 //          var line = d3.line().x(function (d) {
@@ -76,7 +76,7 @@ Page {
 
           context.stroke();
       }
-      function lineFunction(xScale, yScale, context) {
+      function x(xScale, yScale, context) {
           return d3.line().x(function (d) {
               return xScale(d[0]);
           }).y(function (d) {
@@ -87,7 +87,7 @@ Page {
 
       function drawXAxis(context, steps) {
           var yScale = d3.scaleLinear().range([0, height]).domain([height, 0]);
-          var line = lineFunction(d3.scaleLinear().range([0, width]).domain([0, width]), yScale, context);
+          var line = x(d3.scaleLinear().range([0, width]).domain([0, width]), yScale, context);
           line([[leftMargin, bottomMargin], [width, bottomMargin]]);
           context.font = '20px serif';
           var stepSize = (width - leftMargin) / steps;
@@ -104,7 +104,7 @@ Page {
 
       function drawYAxis(context, steps) {
           var yScale = d3.scaleLinear().range([0, height]).domain([height, 0]);
-          var line = lineFunction(d3.scaleLinear().range([0, width]).domain([0, width]), yScale, context)
+          var line = x(d3.scaleLinear().range([0, width]).domain([0, width]), yScale, context)
           line([[leftMargin, bottomMargin], [leftMargin, height - bottomMargin]]);
           context.font = '20px serif';
           var stepSize = (height - bottomMargin) / steps;
