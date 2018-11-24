@@ -11,8 +11,8 @@ Item {
         width: parent.width
         height: parent.height
 
-        property double buttonWidth: parent.width / 5
-        property double buttonHeight: parent.height / 7
+        property double buttonWidth: (parent.width - 4) / 5
+        property double buttonHeight: (parent.height - 6) / 7
         KeyBrdBtn { id: btn2nd; text: "2nd";onClicked: Calculator.twond(); width: buttons.buttonWidth; height: buttons.buttonHeight}
         KeyBrdBtn { id: btnDeg; text: "deg"; onClicked: Calculator.deg(); width: buttons.buttonWidth; height: buttons.buttonHeight}
         KeyBrdBtn { id: btnSin; text: "sin"; onClicked: Calculator.doOperation(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight}
