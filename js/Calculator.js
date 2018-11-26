@@ -258,6 +258,8 @@ function factorialToFunction(expr){
                 if(expr[i] === '(')
                     closedBrackets --
             }
+            while(/[a-zA-Z.]/.test(expr[i])) // check function
+                i--
             expr = (i === 0 ? '' : expr.slice(0, i)) + 'calcFactorial' + expr.slice(i, index) + expr.slice(index + 1)
         }
         console.log(expr)
@@ -287,7 +289,9 @@ function powerToFunction(expr){
                 if(expr[i] === '(')
                     closedBrackets --
             }
-            left =(i === 0 ? '' : left.slice(0, i)) + 'Math.pow' + left.slice(i, index - 1) + ','
+            while(i-1 > -1 && /[a-zA-Z.]/.test(expr[i-1])) // check function
+                i--
+            left =(i === 0 ? '' : left.slice(0, i)) + 'Math.pow(' + left.slice(i, index - 1) + '),'
         }
         if(right[0] !== '('){ // extract next number
             i = 0
@@ -332,6 +336,7 @@ function calcResult(){
     expr = factorialToFunction(expr)
     expr = powerToFunction(expr)
 
+    console.log(expr)
     result = eval(expr)
     display.update(stringExpression, result)
 }
