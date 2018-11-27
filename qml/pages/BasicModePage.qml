@@ -5,6 +5,8 @@ import "../assets"
 Page {
     id: page
 
+    property var calculator
+
     allowedOrientations: Orientation.All
     anchors.fill: parent
 
@@ -50,9 +52,14 @@ Page {
             width: parent.width
         }
 
-        KeyBoard {
+        KeyBoardBasic {
             width: parent.width
             height: parent.height - displayP.height
+            calculator: page.calculator
+//            onButtonClicked: function(btn) {
+//                page.calculator.inputNum(btn)
+//                displayP.update(page.calculator.stringExpression, page.calculator.result)
+//            }
         }
     }
 
@@ -73,4 +80,8 @@ Page {
 //            height: parent.height
 //        }
 //    }
+    Component.onCompleted: {
+        page.calculator.setDisplay(displayP)
+        displayP.update(page.calculator.stringExpression, page.calculator.result)
+    }
 }
