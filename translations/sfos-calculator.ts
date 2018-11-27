@@ -72,6 +72,16 @@
     </message>
 </context>
 <context>
+    <name>Graph</name>
+    <message>
+        <source>You may enter 
+ wrong expression 
+ or 
+ system problems</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>GraphBuilder</name>
     <message>
         <source>Graph</source>

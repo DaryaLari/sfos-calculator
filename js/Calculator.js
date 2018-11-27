@@ -74,6 +74,11 @@ function del(){
     display.update(stringExpression, result)
 }
 
+function delPart(part){
+    stringExpression = stringExpression.slice(0, -part.length)
+    display.update(stringExpression, result)
+}
+
 function ac(){
     stringExpression = '0'
     display.update(stringExpression, result)

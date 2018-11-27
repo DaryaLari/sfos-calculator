@@ -5,20 +5,32 @@ MouseArea {
     id: area
 
     property string text: '<Value>'
-
+    property bool isEnable: true
     Rectangle {
         width: parent.width
         height: parent.height
-        color: area.pressed ? Theme.rgba(Theme.highlightBackgroundColor,
+        color: {
+            area.pressed ? Theme.rgba(Theme.highlightBackgroundColor,
                           Theme.highlightBackgroundOpacity) :
         Theme.rgba(Theme.secondaryColor,
-                          Theme.highlightBackgroundOpacity)
+                          Theme.highlightBackgroundOpacity);
+
+
+            if(isEnable==false) Theme.rgba(Theme.secondaryColor,
+                                    0.25)
+        }
+
 
         Text {
             text: area.text
             anchors.centerIn: parent
-            color: Theme.primaryColor
+            color: {
+                if(isEnable==true)
+                    Theme.primaryColor;
+                else Theme.rgba(Theme.secondaryColor,0.2)
+            }
             font.pixelSize: Theme.fontSizeLarge
         }
     }
+    enabled: isEnable
 }
