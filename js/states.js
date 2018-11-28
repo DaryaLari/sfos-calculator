@@ -166,6 +166,7 @@ function assignComplexOperation(boolTOR){
     btnXPow.isEnable=boolTOR;
     btnPow.isEnable=boolTOR;
     btnLg2x.isEnable=boolTOR;
+    btnAbs.isEnable=boolTOR;
 }
 function assignConst(boolTOR){
     btnPi.isEnable=boolTOR;

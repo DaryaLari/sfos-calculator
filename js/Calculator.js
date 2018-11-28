@@ -43,6 +43,22 @@ function inputNum(number){
     display.update(stringExpression, result)
 }
 
+function inputNum1(number){
+    if(result !== ''){
+
+        stringExpression = number
+        result = ''
+    }
+    else{
+        if(stringExpression === '0')
+            stringExpression = number
+        else{
+                stringExpression += number
+        }
+    }
+    display.update(stringExpression, result)
+}
+
 function constant(c){
     if(result !== ''){
         stringExpression = c

@@ -231,7 +231,13 @@ visible: !mistake
               y = 0;
               var m = Math.pow(10,1);
               x=Math.round(x*m)/m;
+              try{
               eval(expression1);
+              }catch(error){
+                  mistake=true;
+                  break;
+              }
+
 //              var m1 = Math.pow(10,0);
               y=toFixed1(y);
 //              y=Math.round(y*m1)/m1;
