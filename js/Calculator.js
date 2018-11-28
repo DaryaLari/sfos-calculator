@@ -11,15 +11,6 @@ function setDisplay(d){
     display = d
 }
 
-//function Node() {
-//    this.value = null
-//    this.left = null
-//    this.right = null
-//    this.parent = null
-//}
-//var expressionTree = new Node()
-//var currentNode = expressionTree
-
 function deg(){
 //    isDeg = !isDeg
     if(result !== '' || stringExpression === '0'){
@@ -92,14 +83,18 @@ function dot(){
         result = ''
     }
     else{
-        if('0123456789'.indexOf(stringExpression.slice(-1)) != -1 && !isDecimal){ // ends with digit
-            stringExpression += '.'
-            isDecimal = true
+        if('0123456789'.indexOf(stringExpression.slice(-1)) != -1 /*&& !isDecimal*/){ // ends with digit
+            var i = stringExpression.length - 1
+            while(i > -1 && '0123456789'.indexOf(stringExpression[i]) !== -1)
+                i --
+            if(i < 0 || (i > -1 && stringExpression[i] != '.')) // not decimal number yet
+                stringExpression += '.'
+//            isDecimal = true
         }
         else
             if('+-*/'.indexOf(stringExpression.slice(-1)) != -1){ // ends with operator
                 stringExpression += '0.'
-                isDecimal = true
+//                isDecimal = true
             }
     }
     display.update(stringExpression, result)
