@@ -76,7 +76,7 @@ function power(p){
         result = ''
     }
     else{
-        if('0123456789)%!'.indexOf(stringExpression.slice(-1)) != -1 && !isDecimal){ // ends with digit
+        if('0123456789)%!'.indexOf(stringExpression.slice(-1)) != -1){ // ends with number
             stringExpression += '^'
             if(p !== '1')
                 stringExpression += '(' + p + ')'
@@ -190,6 +190,8 @@ function bracket(br){
 
 function del(){
     if('0123456789πe)+-*/%!^.'.indexOf(stringExpression.slice(-1)) != -1){
+        if(stringExpression.slice(-1) === ')')
+            bracketsOpened ++
         stringExpression = stringExpression.slice(0, -1)
     }
     else{
@@ -197,16 +199,25 @@ function del(){
            stringExpression.slice(-4) === 'cos(' ||
            stringExpression.slice(-4) === 'tan(' ||
            stringExpression.slice(-4) === 'deg('
-        )
+        ){
             stringExpression = stringExpression.slice(0, -4)
+            bracketsOpened --
+        }
         else if(stringExpression.slice(-3) === 'lg(' ||
            stringExpression.slice(-3) === 'ln('
-        )
+        ){
             stringExpression = stringExpression.slice(0, -3)
-        else if(stringExpression.slice(-2) === '√(')
+            bracketsOpened --
+        }
+        else if(stringExpression.slice(-2) === '√('){
             stringExpression = stringExpression.slice(0, -2)
-        else
+            bracketsOpened --
+        }
+        else{
+            if(stringExpression.slice(-1) === '(')
+                bracketsOpened --
             stringExpression = stringExpression.slice(0, -1)
+        }
     }
     if(stringExpression === '')
         stringExpression = '0'

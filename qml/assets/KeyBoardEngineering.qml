@@ -17,7 +17,7 @@ Item {
 
         property double buttonWidth: (parent.width - 4) / 5
         property double buttonHeight: (parent.height - 6) / 7
-        KeyBrdBtn { id: btn2nd; text: "2nd"; onClicked: keyboard.calculator.twond(); width: buttons.buttonWidth; height: buttons.buttonHeight}
+        KeyBrdBtn { id: btn2nd; text: "^2"; onClicked: keyboard.calculator.power('2'); width: buttons.buttonWidth; height: buttons.buttonHeight}
         KeyBrdBtn { id: btnDeg; text: "deg"; onClicked: keyboard.calculator.deg(); width: buttons.buttonWidth; height: buttons.buttonHeight}
         KeyBrdBtn { id: btnSin; text: "sin"; onClicked: keyboard.calculator.prefixOperation(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight}
         KeyBrdBtn { id: btnCos; text: "cos"; onClicked: keyboard.calculator.prefixOperation(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight}
