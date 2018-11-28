@@ -19,6 +19,8 @@ function pushNumber() {
         btnMinus.isEnable=bool1;
         btnMult.isEnable=bool1;
         btnDiv.isEnable=bool1;
+
+    btnPow.isEnable=(powerClicks==1||powerClicks==2)?true:false;
     }
 
 function pushDot() {
@@ -37,6 +39,8 @@ function pushDot() {
         btnMult.isEnable=false;
         btnDiv.isEnable=false;
     btnBuild.isEnable=false;
+
+     btnPow.isEnable=(powerClicks==1||powerClicks==2)?false:true;
     }
 
 function pushConst() {
@@ -58,6 +62,7 @@ function pushConst() {
     btnMinus.isEnable=bool2;
     btnMult.isEnable=bool2;
     btnDiv.isEnable=bool2;
+     btnPow.isEnable=(powerClicks==1||powerClicks==2)?true:false;
 }
 
 function pushOperation() {
@@ -83,6 +88,7 @@ function pushOperation() {
     btnDiv.isEnable=bool2;
 
     btnBuild.isEnable=false;
+     btnPow.isEnable=(powerClicks==1||powerClicks==2)?false:true;
 }
 
 function pushComplexOperation() {
@@ -108,6 +114,7 @@ function pushComplexOperation() {
 
    btnBracketSecond.isEnable=false;
     btnBuild.isEnable=false;
+     btnPow.isEnable=(powerClicks==1||powerClicks==2)?false:true;
 }
 
 function pushDeleteAll() {
@@ -128,7 +135,6 @@ function pushDeleteAll() {
     btnMinus.isEnable=bool2;
     btnMult.isEnable=bool2;
     btnDiv.isEnable=bool2;
-
 }
 
 function assignNumbers(boolTOR){
@@ -146,7 +152,7 @@ function assignNumbers(boolTOR){
      btn9.isEnable=boolTOR;
 
     btnBracketSecond.isEnable=unclosedBrackets>0?true:false;
-    btnBuild.isEnable=(unclosedBrackets>0||expressionParts.length==0)?false:true;
+    btnBuild.isEnable=(unclosedBrackets>0||expressionParts.length==0 ||(keyBoardGraph.powerClicks>0&&keyBoardGraph.powerClicks<3))?false:true;
 }
 function assignComplexOperation(boolTOR){
     btnCos.isEnable=boolTOR;
@@ -158,6 +164,7 @@ function assignComplexOperation(boolTOR){
     btnLn.isEnable=boolTOR;
     btnFactorial.isEnable=boolTOR;
     btnXPow.isEnable=boolTOR;
+    btnPow.isEnable=boolTOR;
     btnLg2x.isEnable=boolTOR;
 }
 function assignConst(boolTOR){

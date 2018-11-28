@@ -35,10 +35,6 @@ visible: !mistake
         property real minY: range[0][1]
         property real maxY: range[1][1]
 
-        property int leftMargin: 10
-        property int bottomMargin: 10
-
-
         property var coordsOnPressed
         property var coordsOnReleased
         property var coordsOfMovement
@@ -50,17 +46,18 @@ visible: !mistake
 
         //graph drawer
       onPaint:{
+          console.log("HEY");
           var context = plot.getContext('2d');
           context.clearRect(0,0,plot.width,plot.height);
 
-          var xOffset = (range[1][0] - range[0][0]) / 10;
-          var yOffset = (range[1][1] - range[0][1]) / 10;
-          minX = range[0][0] - xOffset;
-          maxX = range[1][0] + xOffset;
-          minY = range[0][1] - yOffset;
-          maxY = range[1][1] + yOffset;
+//          var xOffset = (range[1][0] - range[0][0]) / 10;
+//          var yOffset = (range[1][1] - range[0][1]) / 10;
+//          minX = range[0][0] - xOffset;
+//          maxX = range[1][0] + xOffset;
+//          minY = range[0][1] - yOffset;
+//          maxY = range[1][1] + yOffset;
 
-          //scale X, d3.scaleLinear, which simplify work with scaling of the chart
+          //scale for horizontal distances
           var xScale = d3.scaleLinear()
             .range([0, width])
           .domain([minX, maxX]);
@@ -68,7 +65,7 @@ visible: !mistake
 
 
 
-//          //scales Y, d3.scaleLinear, which simplify work with scaling of the chart
+//          //scales for vertical distances
                var yScale = d3.scaleLinear()
           .range([height , 0])
           .domain([minY, maxY]);
@@ -80,7 +77,7 @@ visible: !mistake
               return xScale(d[0]);
             }).y(function (d) {
               return yScale(d[1]);
-            }).curve(d3.curveNatural).context(context);
+            }).curve(d3.curveCardinal).context(context);
 
           //properties of graph
           context.beginPath();
@@ -94,8 +91,8 @@ visible: !mistake
           drawXAxis(context);
           drawYAxis(context);
 
-          line([[minX, rootLine], [maxX, rootLine]]);
-          line([[rootLine, minY], [rootLine, maxY]]);
+      //    line([[minX, rootLine], [maxX, rootLine]]);
+        //  line([[rootLine, minY], [rootLine, maxY]]);
 
           drawPlot(line);
 
@@ -106,7 +103,7 @@ visible: !mistake
               return xScale(d[0]);
           }).y(function (d) {
               return yScale(d[1]);
-          }).curve(d3.curveNatural)
+          }).curve(d3.curveLinear)
           .context(context);
       }
 
@@ -133,7 +130,7 @@ visible: !mistake
       }
 
       function drawYAxis(context) {
-           var sections=10;
+           var sections=12;
 
           //draw y line
           var yLine = d3.scaleLinear().range([0, height]).domain([height, 0]);
@@ -178,9 +175,9 @@ visible: !mistake
           line(getPoints());
 
       }
+      //factorial
       function sFact(num)
       {
-          console.log(isNaN("false"));
           if(num<0)return "false";
 //          console.log(num+" "+parseInt(num.toString(),10)+"="+(num===parseInt(num.toString(),10)));
           if(num!==parseInt(num.toString(),10))return "false";
@@ -189,8 +186,38 @@ visible: !mistake
               rval = rval * i;
           return rval;
       }
+
+      //expressions1 in degree expression2
       function powOp(a,b){
           return Math.pow(a,b);
+      }
+
+      //prevent e+/ e- form
+      function toFixed1(x) {
+        if (Math.abs(x) < 1.0) {
+          var e = parseInt(x.toString().split('e-')[1]);
+          if (e) {
+              x *= Math.pow(10,e-1);
+              x = '0.' + (new Array(e)).join('0') + x.toString().substring(2);
+          }
+        } else {
+          var e = parseInt(x.toString().split('+')[1]);
+          if (e > 20) {
+              e -= 20;
+              x /= Math.pow(10,e);
+              x += (new Array(e+1)).join('0');
+          }
+        }
+        return x;
+      }
+      function changeminmaxrange(min){
+          console.log(min)
+          plot.minX=(-1)*min-10;
+          plot.maxX=min+10;
+          plot.minY=((-1)*min-10)*2;
+          plot.maxY=(min+10)*2;
+          console.log("mm= "+plot.minX+" "+plot.maxX+" "+plot.minY);
+
       }
 
       function log2x(x){return Math.log(x)*Math.LOG2E;}
@@ -198,93 +225,96 @@ visible: !mistake
           console.log(expression1);
           var points = [];
           var y;
-          var dx = (maxX - minX) / 100;
+          var dx = (maxX - minX) / 10;
           dx=0.1;
           for(var x =minX; x <= maxX; x =x+ dx) {
               y = 0;
-
               var m = Math.pow(10,1);
-               x=Math.round(x*m)/m;
-//              console.log("x="+x);
-//              for (var j = 0; j < 5; j++) {
-//                  y += Math.pow(x, j)  * elem[j];
-//              }
-//              if(x==0)x=0.01
-
-
+              x=Math.round(x*m)/m;
               eval(expression1);
-
+//              var m1 = Math.pow(10,0);
+              y=toFixed1(y);
+//              y=Math.round(y*m1)/m1;
+              y=Number(y).toFixed(15).replace(/\.?0+$/,"");
+//              y=(y).toFixed(15);
 //                y=Math.round(y*m)/m;
-
-console.log("coordinates: x="+x+" y="+y)
+  //console.log("coordinates: x="+x+" y="+y)
+//console.log("coordinates: x="+x+" y="+y+" max="+toFixed(Number.MAX_VALUE)+" safe number="+Number.MAX_SAFE_INTEGER);
               if(!isNaN(y)){
                   if(!(y===-Infinity||y===Infinity)){
-                      m = Math.pow(10,10);
-                      y=Math.round(y*m)/m;
+                      if(y<=9007199254740991&&y>=-9007199254740991){
+//                      m = Math.pow(10,10);
+//                      y=Math.round(y*m)/m;
 //                  console.log("coordinates:");
-                  console.log("coordinates: x="+x+" y="+y)
+//                  console.log("coordinates: x="+x+" y="+y)
 //                  console.log("BINGP");
               points.push([x, y]);
+                      }
 
                   }
               }
           }
           if(points.length==0){mistake=true; plot.visible=false;}
-          console.log(points.length)
+//          console.log(points[0][0]+" "+points[0][1])
+//          var min=Math.abs(points[0][1]);
+//          changeminmaxrange(min);
+
+//          plot.requestPaint();
+//          console.log(points.length)
           return points;
       }
-      Item {
-          id:zoom
-          anchors.fill: plot
-          //processing pinch gesture
-        PinchArea{
-            id: pinchArea
-            property real minScale: 0.5
-            property real maxScale: 1.0
-            anchors.fill: parent
-            pinch.target: zoom
-            pinch.minimumScale: minScale * 0.5
-            pinch.maximumScale: maxScale * 1.5
-            //The commented code below - fire exit
-            onPinchFinished: {
-                                console.log(zoom.scale)
-                                if (zoom.scale <= 1)
-                                    plot.changeZoomPlus(Math.round(zoom.scale));
-                                else
-                                    plot.changeZoomMinus(Math.round(zoom.scale*10));
-                zoom.scale = 1;
-            }
-            onPinchUpdated: {
-                if (zoom.scale >= 1)
-                    plot.changeZoomPlus(roundOfNum(zoom.scale));
-                else
-                    plot.changeZoomMinus(roundOfNum(zoom.scale));
-            }
+//      Item {
+//          id:zoom
+//          anchors.fill: plot
+//          //processing pinch gesture
+//        PinchArea{
+//            id: pinchArea
+//            property real minScale: 0.5
+//            property real maxScale: 1.0
+//            anchors.fill: parent
+//            pinch.target: zoom
+//            pinch.minimumScale: minScale * 0.5
+//            pinch.maximumScale: maxScale * 1.5
+//            //The commented code below - fire exit
+//            onPinchFinished: {
+//                                console.log(zoom.scale)
+//                                if (zoom.scale <= 1)
+//                                    plot.changeZoomPlus(Math.round(zoom.scale));
+//                                else
+//                                    plot.changeZoomMinus(Math.round(zoom.scale*10));
+//                zoom.scale = 1;
+//            }
+//            onPinchUpdated: {
+//                if (zoom.scale >= 1)
+//                    plot.changeZoomPlus(roundOfNum(zoom.scale));
+//                else
+//                    plot.changeZoomMinus(roundOfNum(zoom.scale));
+//            }
 
-            Rectangle {
-                opacity: 0.0
-                anchors.fill: parent
-            }
-        }
-        //processing moving
-        MouseArea {
-            id: inputArea
-            anchors.fill: parent
-            onPressed: {
-                plot.coordsOnPressed = [mouse.x,mouse.y];
-            }
-            onPositionChanged: {
-                plot.coordsOnReleased = [mouse.x,mouse.y];
-                plot.coordsOfMovement = [Math.round((plot.coordsOnPressed[0]-plot.coordsOnReleased[0])/100),Math.round((plot.coordsOnReleased[1]-plot.coordsOnPressed[1])/100)];
-                range[0][0]+=plot.coordsOfMovement[0];
-                range[0][1]+=plot.coordsOfMovement[1];
-                range[1][0]+=plot.coordsOfMovement[0];
-                range[1][1]+=plot.coordsOfMovement[1];
-                plot.coordsOnPressed =  plot.coordsOnReleased
-                plot.requestPaint();
-            }
-        }
-      }
+//            Rectangle {
+//                opacity: 0.0
+//                anchors.fill: parent
+//            }
+//        }
+//        //processing moving
+////        MouseArea {
+////            id: inputArea
+////            anchors.fill: parent
+////            onPressed: {
+////                plot.coordsOnPressed = [mouse.x,mouse.y];
+////            }
+////            onPositionChanged: {
+////                plot.coordsOnReleased = [mouse.x,mouse.y];
+////                plot.coordsOfMovement = [Math.round((plot.coordsOnPressed[0]-plot.coordsOnReleased[0])/100),Math.round((plot.coordsOnReleased[1]-plot.coordsOnPressed[1])/100)];
+////                range[0][0]+=plot.coordsOfMovement[0];
+////                range[0][1]+=plot.coordsOfMovement[1];
+////                range[1][0]+=plot.coordsOfMovement[0];
+////                range[1][1]+=plot.coordsOfMovement[1];
+////                plot.coordsOnPressed =  plot.coordsOnReleased
+////                plot.requestPaint();
+////            }
+////        }
+//      }
     }
 
    }

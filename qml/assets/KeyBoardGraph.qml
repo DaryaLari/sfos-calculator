@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import "../assets"
 import "../../js/states.js" as STATE
+import Sailfish.Silica 1.0
 Item {
     id: keyBoardGraph
     property string expression: 'y='
@@ -23,7 +24,7 @@ Item {
         property double buttonHeight: parent.height / 7
 
         KeyBrdBtn {
-            id: btnXPow; text: "X^a";
+            id: btnXPow; text: "x^a";
             onClicked:  {
 
                 keyBoardGraph.calculator.inputNum("x^(");
@@ -37,21 +38,26 @@ Item {
 
         KeyBrdBtn {
             id: btnPow; text: "a^b";
+
             onClicked:   {
+
                 btnC.isEnable=false;
 console.log("clicks->"+powerClicks+"<-Clicks");
                 powerClicks++;
                if(powerClicks==1){
-                   text="start \n power";
+                   textBig=true;
+                   text="start \n degree";
                    keyBoardGraph.calculator.inputNum("(");
                     expressionParts.push("Math.pow(");
                    expressionPartsButtonText.push("(");
                    STATE.pushComplexOperation();
                    operationStack.push("STATE.pushComplexOperation()");
                    btnBuild.isEnable=false;
+                   btnPow.isEnable=false;
 
                }
                if(powerClicks==2){
+
                    text="end \n input";
                    keyBoardGraph.calculator.inputNum(")^(");
                     expressionParts.push(",");
@@ -59,9 +65,11 @@ console.log("clicks->"+powerClicks+"<-Clicks");
                    STATE.pushComplexOperation();
                    operationStack.push("STATE.pushComplexOperation()");
                    btnBuild.isEnable=false;
+                   btnPow.isEnable=false;
 
                }
                if(powerClicks==3){
+                   textBig=false;
                    text="a^b";powerClicks=0;
                    keyBoardGraph.calculator.inputNum(")");
                     expressionParts.push(")");
@@ -129,6 +137,7 @@ console.log("clicks->"+powerClicks+"<-Clicks");
 
         KeyBrdBtn {
             id: btnLg2x; text: "log2(a)";
+            textBig:true;
             onClicked: {
                 keyBoardGraph.calculator.inputNum("log2(");
                     expressionParts.push("log2x(");
@@ -444,6 +453,7 @@ btnC.isEnable=true;
 
         KeyBrdBtn {
             id: btnlogTE; text: "log2(e)";
+             textBig:true;
             onClicked: {
 
                 keyBoardGraph.calculator.inputNum("log2(e)");
