@@ -22,7 +22,7 @@ Column {
         id: equation
             height: parent.height / 2
         readOnly: true
-        text: qsTr("f(x)=%1").arg(display.expression)
+        text: qsTr("%1").arg("Expression")
         color: Theme.primaryColor
         font.pixelSize: Theme.fontSizeMedium
         anchors {
@@ -37,9 +37,9 @@ Column {
         id: result
         readOnly: true
          height: parent.height / 2
-        text: qsTr("%1").arg(display.expression)
+        text: qsTr("f(x)=%1").arg(display.expression)
         color: Theme.primaryColor
-        font.pixelSize: Theme.fontSizeExtraLarge
+        font.pixelSize: Theme.fontSizeLarge
         anchors {
             left: parent.left
             right: parent.right

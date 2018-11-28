@@ -6,7 +6,9 @@ MouseArea {
 
     property string text: '<Value>'
     property bool isEnable: true
+    property bool textBig: false
     Rectangle {
+        id:button
         width: parent.width
         height: parent.height
         color: {
@@ -29,7 +31,9 @@ MouseArea {
                     Theme.primaryColor;
                 else Theme.rgba(Theme.secondaryColor,0.2)
             }
-            font.pixelSize: Theme.fontSizeLarge
+            horizontalAlignment:Text.AlignHCenter
+            font.pixelSize: textBig==false?Theme.fontSizeLarge:Theme.fontSizeSmall
+
         }
     }
     enabled: isEnable
