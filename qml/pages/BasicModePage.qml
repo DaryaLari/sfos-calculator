@@ -1,11 +1,10 @@
 import QtQuick 2.2
 import Sailfish.Silica 1.0
 import "../assets"
+import "../../js/Calculator.js" as Calculator
 
 Page {
     id: page
-
-    property var calculator
 
     allowedOrientations: Orientation.All
     anchors.fill: parent
@@ -55,7 +54,7 @@ Page {
         KeyBoardBasic {
             width: parent.width
             height: parent.height - displayP.height
-            calculator: page.calculator
+            calculator: Calculator
 //            onButtonClicked: function(btn) {
 //                page.calculator.inputNum(btn)
 //                displayP.update(page.calculator.stringExpression, page.calculator.result)
@@ -81,7 +80,7 @@ Page {
 //        }
 //    }
     Component.onCompleted: {
-        page.calculator.setDisplay(displayP)
-        displayP.update(page.calculator.stringExpression, page.calculator.result)
+        Calculator.setDisplay(displayP)
+        displayP.update(Calculator.stringExpression, Calculator.result)
     }
 }

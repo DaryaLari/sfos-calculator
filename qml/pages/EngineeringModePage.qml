@@ -1,6 +1,7 @@
 import QtQuick 2.2
 import Sailfish.Silica 1.0
 import "../assets"
+import "../../js/Calculator.js" as Calculator
 
 Page {
     id: page
@@ -31,6 +32,7 @@ Page {
         }
 
         KeyBoardEngineering {
+            calculator: Calculator
             width: parent.width
             height: parent.height - displayP.height
         }
@@ -53,4 +55,8 @@ Page {
 //            height: parent.height
 //        }
 //    }
+    Component.onCompleted: {
+        Calculator.setDisplay(displayP)
+        displayP.update(Calculator.stringExpression, Calculator.result)
+    }
 }

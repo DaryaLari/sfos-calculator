@@ -35,7 +35,7 @@ Item {
         KeyBrdBtn { id: btn8; text: "8"; onClicked: keyBoard.calculator.inputNum(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight}
         KeyBrdBtn { id: btn9; text: "9"; onClicked: keyBoard.calculator.inputNum(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight}
         Item {id: equalBtnSpace; width: buttons.buttonWidth; height: buttons.buttonHeight}
-        KeyBrdBtn { id: btnPercent; text: "%"; onClicked: keyBoard.calculator.operation(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight}
+        KeyBrdBtn { id: btnPercent; text: "%"; onClicked: keyBoard.calculator.percent(); width: buttons.buttonWidth; height: buttons.buttonHeight}
         KeyBrdBtn { id: btn0; text: "0"; onClicked: keyBoard.calculator.inputNum(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight}
         KeyBrdBtn { id: btnDot; text: "."; onClicked: keyBoard.calculator.dot(); width: buttons.buttonWidth; height: buttons.buttonHeight}
     }
