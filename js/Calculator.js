@@ -2,18 +2,14 @@ var stringExpression = '0'
 var result = ''
 var isDecimal = false // current number has dot already
 
-function bracketsOpened() {
-    console.log(stringExpression, countBracket('('), countBracket(')'))
-    return countBracket('(') - countBracket(')')
+function countBracket(br){
+    var count = 0
+    for(var i = 0; i < stringExpression.length; i++){
+        if(stringExpression[i] === br)
+         count ++
+    }
+    return count
 }
- function countBracket(br){
-     var count = 0
-     for(var i = 0; i < stringExpression.length; i++){
-         if(stringExpression[i] === br)
-             count ++
-     }
-     return count
- }
 
 var display = null
 
@@ -26,12 +22,10 @@ function deg(){
     if(result !== '' || stringExpression === '0'){
         stringExpression = 'deg('
         result = ''
-        bracketsOpened ++
     }
     else{
         if('+-*/('.indexOf(stringExpression.slice(-1)) !== -1){
             stringExpression += 'deg('
-            bracketsOpened ++
         }
     }
     display.update(stringExpression, result)
@@ -162,13 +156,11 @@ function prefixOperation(op){
     if(result !== '' || stringExpression === '0'){
         stringExpression = op + '('
         result = ''
-        bracketsOpened ++
     }
     else{
         if('(+-*/^'.indexOf(stringExpression.slice(-1)) != -1){
             stringExpression += op + '('
             isDecimal = false
-            bracketsOpened ++
         }
     }
     display.update(stringExpression, result)
@@ -194,13 +186,11 @@ function bracket(br){
         result = ''
     }
     else{
-        if('+-*/(^'.indexOf(stringExpression.slice(-1)) != -1// ends with operator
-                && br === '('){
+        if('+-*/(^'.indexOf(stringExpression.slice(-1)) != -1 && br === '('){
             stringExpression += '('
         }
         else
-            if('0123456789πe)'.indexOf(stringExpression.slice(-1)) != -1
-                    && br === ')' && bracketsOpened() > 0){
+            if('0123456789πe)'.indexOf(stringExpression.slice(-1)) != -1 && br === ')' && ((countBracket('(') - countBracket(')')) > 0)){
                 stringExpression += ')'
             }
     }
@@ -345,38 +335,34 @@ function calcResult(){
     if('+-*/.'.indexOf(stringExpression.slice(-1)) != -1){ // ends with operator
         stringExpression = stringExpression.slice(0, -1)
     }
-    console.log(bracketsOpened())
-    while(bracketsOpened() > 0)
+    while((countBracket('(') - countBracket(')')) > 0)
         stringExpression += ')'
     isDecimal = false
     var expr = stringExpression
-    expr = expr.replace('deg', '(Math.PI / 180)*')
-    expr = expr.replace('%', '*0.01')
-    expr = expr.replace('π', 'Math.PI')
-    expr = expr.replace('e', 'Math.E')
-    expr = expr.replace('ln', 'Math.log')
-    expr = expr.replace('lg', 'Math.log10')
-    expr = expr.replace('√', 'Math.sqrt')
-    expr = expr.replace('sin', 'Math.sin')
-    expr = expr.replace('cos', 'Math.cos')
-    expr = expr.replace('tan', 'Math.tan')
+    expr = expr.replace(/deg/g, '(Math.PI / 180)*')
+    expr = expr.replace(/%/g, '*0.01')
+    expr = expr.replace(/π/g, 'Math.PI')
+    expr = expr.replace(/e/g, 'Math.E')
+    expr = expr.replace(/ln/g, 'Math.log')
+    expr = expr.replace(/lg/g, 'Math.log10')
+    expr = expr.replace(/√/g, 'Math.sqrt')
+    expr = expr.replace(/sin/g, 'Math.sin')
+    expr = expr.replace(/cos/g, 'Math.cos')
+    expr = expr.replace(/tan/g, 'Math.tan')
 
-    expr = factorialToFunction(expr)
-    expr = powerToFunction(expr)
+    try{
+        expr = factorialToFunction(expr)
+        expr = powerToFunction(expr)
 
-    console.log(expr)
-    result = eval(expr)
+        console.log(expr)
+        result = eval(expr)
+
+    }catch(error){
+        console.log(error)
+        result = 'unknown error'
+    }
     display.update(stringExpression, result)
 
 
-    app.history.push({expression: stringExpression, result: result});
-    console.log("hist = "+app.history)
-}
-
-function getLength(){
-    return app.history.length
-}
-
-function getHistory(i){
-    return app.history[i];
+    app.history.append({expression: stringExpression, result: result});
 }
