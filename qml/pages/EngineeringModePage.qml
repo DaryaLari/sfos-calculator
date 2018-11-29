@@ -1,13 +1,20 @@
 import QtQuick 2.2
 import Sailfish.Silica 1.0
 import "../assets"
-import "../../js/Calculator.js" as Calculator
 
 Page {
     id: page
+    objectName: "EngineeringModePage"
 
     allowedOrientations: Orientation.All
     anchors.fill: parent
+
+    SilicaListView{
+        anchors.fill: parent
+        contentHeight: page.height
+        Menu{}
+    }
+
     PageHeader {
         id: header
         title: qsTr("Engineering Mode")
@@ -32,7 +39,6 @@ Page {
         }
 
         KeyBoardEngineering {
-            calculator: Calculator
             width: parent.width
             height: parent.height - displayP.height
         }
@@ -56,7 +62,7 @@ Page {
 //        }
 //    }
     Component.onCompleted: {
-        Calculator.setDisplay(displayP)
-        displayP.update(Calculator.stringExpression, Calculator.result)
+        app.calculator.setDisplay(displayP)
+        displayP.update(app.calculator.stringExpression, app.calculator.result)
     }
 }

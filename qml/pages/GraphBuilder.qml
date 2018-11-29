@@ -4,9 +4,18 @@ import "../assets"
 import "../../js/Calculator.js" as Calculator
 Page {
     id: page
+    objectName: "GraphBuilder"
+
     property var calculator: Calculator
     allowedOrientations: Orientation.All
     anchors.fill: parent
+
+    SilicaListView{
+        anchors.fill: parent
+        contentHeight: page.height
+        Menu{}
+    }
+
     PageHeader {
         id: header
         title: qsTr("Graph")
