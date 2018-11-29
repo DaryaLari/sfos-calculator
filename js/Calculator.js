@@ -366,5 +366,16 @@ function calcResult(){
     console.log(expr)
     result = eval(expr)
     display.update(stringExpression, result)
+
+
+    history.push("result.toString()");
+    console.log("hist = "+history.length)
 }
 
+function getLength(){
+    return history.length
+}
+
+function getHistory(i){
+    return history[i];
+}

@@ -39,7 +39,8 @@ DISTFILES += qml/sfos-calculator.qml \
     qml/assets/KeyBoardEngineering.qml \
     qml/assets/GraphCanvas.qml\
     qml/pages/d3.js \
-    js/states.js
+    js/states.js \
+    qml/assets/historyDisplay.qml
 
 OTHER_FILES += js/*
 js.files = js/*

@@ -5,7 +5,6 @@ import "../../js/Calculator.js" as Calculator
 
 Page {
     id: page
-
     allowedOrientations: Orientation.All
     anchors.fill: parent
 
@@ -52,6 +51,7 @@ Page {
         }
 
         KeyBoardBasic {
+
             width: parent.width
             height: parent.height - displayP.height
             calculator: Calculator
@@ -80,6 +80,9 @@ Page {
 //        }
 //    }
     Component.onCompleted: {
+        history.push("\n"+"expression"+"\n");
+        console.log("hist = "+history.length)
+        console.log(" c l = "+history.length+" "+Calculator.getLength());
         Calculator.setDisplay(displayP)
         displayP.update(Calculator.stringExpression, Calculator.result)
     }

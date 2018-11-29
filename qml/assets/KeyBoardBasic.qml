@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import "../assets"
-
+import "../pages"
 Item {
     id: keyBoard
 //    signal buttonClicked(string btn)
@@ -39,8 +39,9 @@ Item {
         KeyBrdBtn { id: btn0; text: "0"; onClicked: keyBoard.calculator.inputNum(this.text); width: buttons.buttonWidth; height: buttons.buttonHeight}
         KeyBrdBtn { id: btnDot; text: "."; onClicked: keyBoard.calculator.dot(); width: buttons.buttonWidth; height: buttons.buttonHeight}
     }
-    KeyBrdBtn { id: btnEqual; text: "="; onClicked: keyBoard.calculator.calcResult(); width: buttons.buttonWidth; height: buttons.buttonHeight * 2 + 1
+    KeyBrdBtn { id: btnEqual; text: "="; onClicked: {keyBoard.calculator.calcResult();console.log("his len = "+history.length)} width: buttons.buttonWidth; height: buttons.buttonHeight * 2 + 1
         anchors {
+
             right: buttons.right
             bottom: buttons.bottom
         }
