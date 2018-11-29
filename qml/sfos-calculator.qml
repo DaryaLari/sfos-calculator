@@ -6,7 +6,7 @@ import "../js/Calculator.js" as Calculator
 ApplicationWindow
 {
     id: app
-    property var history: []
+    property var history: ListModel {id: historyModel}
     property var calculator: Calculator
     initialPage: Component { BasicModePage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")

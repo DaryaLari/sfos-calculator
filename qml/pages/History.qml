@@ -8,7 +8,6 @@ Page {
 
     allowedOrientations: Orientation.All
 
-//     property var historyAr
     PageHeader {
         id: header
         title: qsTr("History")
@@ -21,7 +20,7 @@ Page {
     }
     Label{
         id: noHistory
-        visible: app.history.length === 0
+        visible: app.history.count === 0
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         color: Theme.secondaryHighlightColor
@@ -39,21 +38,27 @@ Page {
         visible: app.calculator.countOfOperations!==0
         width: parent.width;
         height: parent.height
-        model: ListModel {
-           id: historyModel
-           ListElement { name: "test1"; value: "history" }
-        }
+        model: app.history
         header: PageHeader{ title: qsTr("History") }
         delegate: Item {
             width: parent.width
             height: Theme.itemSizeMedium
-            Label {
-                text: value
-                font.pixelSize: Theme.fontSizeMedium
+            Column{
                 anchors {
                     left: parent.left
                     right: parent.right
                     margins: Theme.paddingLarge
+                }
+                Label {
+                    width: parent.width
+                    text: expression
+                    font.pixelSize: Theme.fontSizeMedium
+                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                }
+                Label {
+                    width: parent.width
+                    text: ' = ' + result
+                    font.pixelSize: Theme.fontSizeLarge
                 }
             }
             MouseArea {
@@ -64,36 +69,9 @@ Page {
             }
         }
     }
-        Component.onCompleted: {}
-//            app.calculator.setDisplay(displayP)
-//            displayP.update(app.calculator.stringExpression, app.calculator.result)
 
-//            history.push("\n"+"expression"+"\n");
-//            console.log("hist = "+history.length)
-
-//            console.log(" c l = "+history.length+" "+app.calculator.getLength());
-//            for(var i=0;i<history.length;i++) {
-//                console.log("h= "+history[i]);
-//                var element = { "value" : qsTr("%1").arg(history[i]) }
-//                historyModel.append(element)
-//            }
-//        }
-
-//        function update(){
-////            console.log('app', app)
-//           console.log("hfghfg= "+ app.history.length, app.history)
-//            console.log("model= ", list.model)
-//            for(var i=0;i<app.history.length;i++) {
-//                console.log("h= "+app.history[i]);
-////                var element = { "value" : qsTr("%1").arg(app.history[i]) }
-////                app.history.append(element)
-//            }
-//        }
 
     function clearHistory(){
-//        page.history.countOfOperations = 0;
-//        page.history.history = [];
-//        page.history.clearHistory();
         app.history.clear()
     }
 }
