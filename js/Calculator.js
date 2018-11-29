@@ -83,7 +83,7 @@ function power(p){
         result = ''
     }
     else{
-        if('0123456789)%!'.indexOf(stringExpression.slice(-1)) != -1){ // ends with number
+        if('0123456789)%!eπ'.indexOf(stringExpression.slice(-1)) != -1){ // ends with number
             stringExpression += '^'
             if(p !== '1')
                 stringExpression += '(' + p + ')'
@@ -126,7 +126,7 @@ function operation(op){
             stringExpression = op
         }
         else{
-            if('0123456789)%'.indexOf(stringExpression.slice(-1)) != -1){
+            if('0123456789)%!eπ'.indexOf(stringExpression.slice(-1)) != -1){
                 stringExpression += op
                 isDecimal = false
             }
