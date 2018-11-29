@@ -1,34 +1,17 @@
 import QtQuick 2.2
 import Sailfish.Silica 1.0
 import "../assets"
-import "../../js/Calculator.js" as Calculator
 
 Page {
     id: page
+    objectName: "BasicModePage"
     allowedOrientations: Orientation.All
     anchors.fill: parent
 
     SilicaListView{
         anchors.fill: parent
         contentHeight: page.height
-        PullDownMenu{
-                    MenuItem{
-                        text: qsTr("Engineering mode")
-                        onClicked: pageStack.push(Qt.resolvedUrl("EngineeringModePage.qml"), {calculator: page.calculator});
-                    }
-                    MenuItem{
-                        text: qsTr("Build a graph")
-                        onClicked: pageStack.push(Qt.resolvedUrl("GraphBuilder.qml"));
-                    }
-                    MenuItem{
-                        text: qsTr("History")
-                        onClicked: {
-
-                            pageStack.push(Qt.resolvedUrl("History.qml"), {calculator: page.calculator});
-                            pageStack.currentPage.update()
-                        }
-                    }
-                }
+        Menu{}
     }
 
     PageHeader {
@@ -58,7 +41,6 @@ Page {
 
             width: parent.width
             height: parent.height - displayP.height
-            calculator: Calculator
 //            onButtonClicked: function(btn) {
 //                page.calculator.inputNum(btn)
 //                displayP.update(page.calculator.stringExpression, page.calculator.result)
@@ -84,10 +66,10 @@ Page {
 //        }
 //    }
     Component.onCompleted: {
-        history.push("\n"+"expression"+"\n");
-        console.log("hist = "+history.length)
-        console.log(" c l = "+history.length+" "+Calculator.getLength());
-        Calculator.setDisplay(displayP)
-        displayP.update(Calculator.stringExpression, Calculator.result)
+//        history.push("\n"+"expression"+"\n");
+        console.log("hist = "+app.history.length)
+        console.log(" c l = "+app.history.length+" ");
+        app.calculator.setDisplay(displayP)
+        displayP.update(app.calculator.stringExpression, app.calculator.result)
     }
 }

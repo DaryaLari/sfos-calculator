@@ -369,14 +369,14 @@ function calcResult(){
     display.update(stringExpression, result)
 
 
-    history.push("result.toString()");
-    console.log("hist = "+history.length)
+    app.history.push({expression: stringExpression, result: result});
+    console.log("hist = "+app.history)
 }
 
 function getLength(){
-    return history.length
+    return app.history.length
 }
 
 function getHistory(i){
-    return history[i];
+    return app.history[i];
 }
