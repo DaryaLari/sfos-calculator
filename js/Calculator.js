@@ -1,9 +1,19 @@
 var stringExpression = '0'
 var result = ''
 var isDecimal = false // current number has dot already
-//var isDeg = true // degrees, else radians
 
-var bracketsOpened = 0
+function bracketsOpened() {
+    console.log(stringExpression, countBracket('('), countBracket(')'))
+    return countBracket('(') - countBracket(')')
+}
+ function countBracket(br){
+     var count = 0
+     for(var i = 0; i < stringExpression.length; i++){
+         if(stringExpression[i] === br)
+             count ++
+     }
+     return count
+ }
 
 var display = null
 
@@ -83,7 +93,7 @@ function power(p){
         result = ''
     }
     else{
-        if('0123456789)%!'.indexOf(stringExpression.slice(-1)) != -1){ // ends with number
+        if('0123456789)%!eπ'.indexOf(stringExpression.slice(-1)) != -1){ // ends with number
             stringExpression += '^'
             if(p !== '1')
                 stringExpression += '(' + p + ')'
@@ -107,6 +117,7 @@ function dot(){
                 stringExpression += '.'
 //            isDecimal = true
         }
+
         else
             if('+-*/'.indexOf(stringExpression.slice(-1)) != -1){ // ends with operator
                 stringExpression += '0.'
@@ -126,7 +137,7 @@ function operation(op){
             stringExpression = op
         }
         else{
-            if('0123456789)%'.indexOf(stringExpression.slice(-1)) != -1){
+            if('0123456789)%!eπ'.indexOf(stringExpression.slice(-1)) != -1){
                 stringExpression += op
                 isDecimal = false
             }
@@ -181,19 +192,16 @@ function bracket(br){
     if((result !== '' || stringExpression === '0') && br === '('){
         stringExpression = '('
         result = ''
-        bracketsOpened = 1
     }
     else{
         if('+-*/(^'.indexOf(stringExpression.slice(-1)) != -1// ends with operator
                 && br === '('){
             stringExpression += '('
-            bracketsOpened ++
         }
         else
             if('0123456789πe)'.indexOf(stringExpression.slice(-1)) != -1
-                    && br === ')' && bracketsOpened > 0){
+                    && br === ')' && bracketsOpened() > 0){
                 stringExpression += ')'
-                bracketsOpened --
             }
     }
     display.update(stringExpression, result)
@@ -201,8 +209,6 @@ function bracket(br){
 
 function del(){
     if('0123456789πe)+-*/%!^.'.indexOf(stringExpression.slice(-1)) != -1){
-        if(stringExpression.slice(-1) === ')')
-            bracketsOpened ++
         stringExpression = stringExpression.slice(0, -1)
     }
     else{
@@ -212,21 +218,16 @@ function del(){
            stringExpression.slice(-4) === 'deg('
         ){
             stringExpression = stringExpression.slice(0, -4)
-            bracketsOpened --
         }
         else if(stringExpression.slice(-3) === 'lg(' ||
            stringExpression.slice(-3) === 'ln('
         ){
             stringExpression = stringExpression.slice(0, -3)
-            bracketsOpened --
         }
         else if(stringExpression.slice(-2) === '√('){
             stringExpression = stringExpression.slice(0, -2)
-            bracketsOpened --
         }
         else{
-            if(stringExpression.slice(-1) === '(')
-                bracketsOpened --
             stringExpression = stringExpression.slice(0, -1)
         }
     }
@@ -242,6 +243,7 @@ function delPart(part){
 
 function ac(){
     stringExpression = '0'
+    result = '0'
     display.update(stringExpression, result)
 }
 
@@ -338,15 +340,14 @@ function powerToFunction(expr){
 function calcResult(){
     while('('.indexOf(stringExpression.slice(-1)) !== -1){
         stringExpression = stringExpression.slice(0, -1)
-        bracketsOpened --
     }
 
     if('+-*/.'.indexOf(stringExpression.slice(-1)) != -1){ // ends with operator
         stringExpression = stringExpression.slice(0, -1)
     }
-    for(bracketsOpened; bracketsOpened > 0; bracketsOpened--)
+    console.log(bracketsOpened())
+    while(bracketsOpened() > 0)
         stringExpression += ')'
-    bracketsOpened = 0
     isDecimal = false
     var expr = stringExpression
     expr = expr.replace('deg', '(Math.PI / 180)*')
