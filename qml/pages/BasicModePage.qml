@@ -21,10 +21,10 @@ Page {
                 text: qsTr("Build a graph")
                 onClicked: pageStack.push(Qt.resolvedUrl("GraphBuilder.qml"));
             }
-            MenuItem{
-                text: qsTr("History")
-                onClicked: pageStack.push(Qt.resolvedUrl("History.qml"));
-            }
+//            MenuItem{
+//                text: qsTr("History")
+//                onClicked: pageStack.push(Qt.resolvedUrl("History.qml"));
+//            }
         }
     }
 
