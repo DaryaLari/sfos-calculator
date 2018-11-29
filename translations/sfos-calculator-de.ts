@@ -44,10 +44,6 @@
         <source>f(x)=%1</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>%1</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>EngineeringModePage</name>
@@ -100,6 +96,10 @@
     </message>
     <message>
         <source>Clear history</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

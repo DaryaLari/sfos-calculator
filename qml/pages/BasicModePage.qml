@@ -12,19 +12,23 @@ Page {
         anchors.fill: parent
         contentHeight: page.height
         PullDownMenu{
-            MenuItem{
-                text: qsTr("Engineering mode")
-                onClicked: pageStack.push(Qt.resolvedUrl("EngineeringModePage.qml"));
-            }
-            MenuItem{
-                text: qsTr("Build a graph")
-                onClicked: pageStack.push(Qt.resolvedUrl("GraphBuilder.qml"));
-            }
-            MenuItem{
-                text: qsTr("History")
-                onClicked: pageStack.push(Qt.resolvedUrl("History.qml"));
-            }
-        }
+                    MenuItem{
+                        text: qsTr("Engineering mode")
+                        onClicked: pageStack.push(Qt.resolvedUrl("EngineeringModePage.qml"), {calculator: page.calculator});
+                    }
+                    MenuItem{
+                        text: qsTr("Build a graph")
+                        onClicked: pageStack.push(Qt.resolvedUrl("GraphBuilder.qml"));
+                    }
+                    MenuItem{
+                        text: qsTr("History")
+                        onClicked: {
+
+                            pageStack.push(Qt.resolvedUrl("History.qml"), {calculator: page.calculator});
+                            pageStack.currentPage.update()
+                        }
+                    }
+                }
     }
 
     PageHeader {

@@ -21,8 +21,9 @@ Column {
     TextArea {
         id: equation
             height: parent.height / 2
+            width: parent.width
         readOnly: true
-        text: qsTr("%1").arg("Expression")
+        text: qsTr("f(x)=%1").arg(display.expression)
         color: Theme.primaryColor
         font.pixelSize: Theme.fontSizeMedium
         anchors {
@@ -36,7 +37,9 @@ Column {
     TextField {
         id: result
         readOnly: true
+         width: parent.width
          height: parent.height / 2
+
         text: qsTr("f(x)=%1").arg(display.expression)
         color: Theme.primaryColor
         font.pixelSize: Theme.fontSizeMedium
