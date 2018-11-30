@@ -366,3 +366,7 @@ function calcResult(){
 
     app.history.append({expression: stringExpression, result: result});
 }
+
+function graphHistory(stringExpr){
+    app.history.append({expression: stringExpr, result: null });
+}
