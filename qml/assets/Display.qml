@@ -1,12 +1,14 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import "../assets"
+
 Column {
-    id:display
+    id: display
     height: 400
     spacing: Theme.paddingLarge
-    property  string expression: ''
-    property  string  result: ''
+
+    property string expression: ''
+    property string result: ''
+
     function update(expr, res){
         setExpression(expr)
         setResult(res)
@@ -17,13 +19,11 @@ Column {
 //    function delLastExpressionLetters(n){display.expression = display.expression.substring(0, display.expression.length - 1 - n)}
 //    function clearExpression(){display.expression = ''}
 
-
     TextArea {
-        id: equation
-            height: parent.height / 2
-            width: parent.width
+        id: expression
+        height: parent.height / 2
         readOnly: true
-        text: qsTr("f(x)=%1").arg(display.expression)
+        text: qsTr("%1").arg(display.expression)
         color: Theme.primaryColor
         font.pixelSize: Theme.fontSizeMedium
         anchors {
@@ -36,13 +36,11 @@ Column {
 
     TextField {
         id: result
+        height: parent.height / 2
         readOnly: true
-         width: parent.width
-         height: parent.height / 2
-
-        text: qsTr("f(x)=%1").arg(display.expression)
+        text: qsTr("= %1").arg(display.result)
         color: Theme.primaryColor
-        font.pixelSize: Theme.fontSizeMedium
+        font.pixelSize: Theme.fontSizeExtraLarge
         anchors {
             left: parent.left
             right: parent.right

@@ -8,8 +8,7 @@ Page {
 
     property int screenCoefficient:parent.height/parent.width
     property var elem:[0,0,1,0,0]
-    property int zoomLevel: zoomLevelControl.value
-    property var range:[[-1*zoomLevel,(-1)*zoomLevel*screenCoefficient],[zoomLevel,zoomLevel*screenCoefficient]];
+    property var range:[[-10,-10*screenCoefficient],[10,10*screenCoefficient]];
 property bool mistake:false
     property int rootLine:0
     id: page
@@ -31,7 +30,6 @@ property bool mistake:false
         anchors.margins: Theme.horizontalPageMargin
 visible: !mistake
         id:plot
-
         property real minX: range[0][0]
         property real maxX: range[1][0]
         property real minY: range[0][1]
@@ -52,12 +50,12 @@ visible: !mistake
           var context = plot.getContext('2d');
           context.clearRect(0,0,plot.width,plot.height);
 
-          var xOffset = (range[1][0] - range[0][0]) / 10;
-          var yOffset = (range[1][1] - range[0][1]) / 10;
-          minX = range[0][0] - xOffset;
-          maxX = range[1][0] + xOffset;
-          minY = range[0][1] - yOffset;
-          maxY = range[1][1] + yOffset;
+//          var xOffset = (range[1][0] - range[0][0]) / 10;
+//          var yOffset = (range[1][1] - range[0][1]) / 10;
+//          minX = range[0][0] - xOffset;
+//          maxX = range[1][0] + xOffset;
+//          minY = range[0][1] - yOffset;
+//          maxY = range[1][1] + yOffset;
 
           //scale for horizontal distances
           var xScale = d3.scaleLinear()
@@ -93,8 +91,8 @@ visible: !mistake
           drawXAxis(context);
           drawYAxis(context);
 
-          line([[minX, rootLine], [maxX, rootLine]]);
-          line([[rootLine, minY], [rootLine, maxY]]);
+      //    line([[minX, rootLine], [maxX, rootLine]]);
+        //  line([[rootLine, minY], [rootLine, maxY]]);
 
           drawPlot(line);
 
@@ -271,87 +269,58 @@ visible: !mistake
 //          console.log(points.length)
           return points;
       }
-      Item {
-          id:zoom
-          anchors.fill: plot
-          //processing pinch gesture
-        PinchArea{
-            id: pinchArea
-            property real minScale: 0.5
-            property real maxScale: 1.0
-            anchors.fill: parent
-            pinch.target: zoom
-            pinch.minimumScale: minScale * 0.5
-            pinch.maximumScale: maxScale * 1.5
-            //The commented code below - fire exit
-            onPinchFinished: {
+//      Item {
+//          id:zoom
+//          anchors.fill: plot
+//          //processing pinch gesture
+//        PinchArea{
+//            id: pinchArea
+//            property real minScale: 0.5
+//            property real maxScale: 1.0
+//            anchors.fill: parent
+//            pinch.target: zoom
+//            pinch.minimumScale: minScale * 0.5
+//            pinch.maximumScale: maxScale * 1.5
+//            //The commented code below - fire exit
+//            onPinchFinished: {
 //                                console.log(zoom.scale)
 //                                if (zoom.scale <= 1)
 //                                    plot.changeZoomPlus(Math.round(zoom.scale));
 //                                else
 //                                    plot.changeZoomMinus(Math.round(zoom.scale*10));
-                zoom.scale = 1;
-            }
-            onPinchUpdated: {
-                if (zoom.scale >= 1)
-                    plot.changeZoomPlus(roundOfNum(zoom.scale));
-                else
-                    plot.changeZoomMinus(roundOfNum(zoom.scale));
-            }
-
-            Rectangle {
-                opacity: 0.0
-                anchors.fill: parent
-            }
-        }
-        //processing moving
-//        MouseArea {
-////            id: inputArea
-//            anchors.fill: parent
-//            onPressed: {
-//                plot.coordsOnPressed = [mouse.x,mouse.y];
+//                zoom.scale = 1;
 //            }
-//            onPositionChanged: {
-//                var x1Step=(plot.coordsOnPressed[0]*range[0][0])/(parent.width/2);
-//                var x2Step=(plot.coordsOnPressed[0]*range[1][0])/parent.width;
-//                var y1Step=(plot.coordsOnPressed[1]*range[0][1])/(parent.height/2);
-//                     var y2Step=(plot.coordsOnPressed[1]*range[1][1])/parent.height;
-//                var rangeX=range[1][0]-range[0][0];
+//            onPinchUpdated: {
+//                if (zoom.scale >= 1)
+//                    plot.changeZoomPlus(roundOfNum(zoom.scale));
+//                else
+//                    plot.changeZoomMinus(roundOfNum(zoom.scale));
+//            }
+
+//            Rectangle {
+//                opacity: 0.0
+//                anchors.fill: parent
+//            }
+//        }
+//        //processing moving
+////        MouseArea {
+////            id: inputArea
+////            anchors.fill: parent
+////            onPressed: {
+////                plot.coordsOnPressed = [mouse.x,mouse.y];
+////            }
+////            onPositionChanged: {
 ////                plot.coordsOnReleased = [mouse.x,mouse.y];
 ////                plot.coordsOfMovement = [Math.round((plot.coordsOnPressed[0]-plot.coordsOnReleased[0])/100),Math.round((plot.coordsOnReleased[1]-plot.coordsOnPressed[1])/100)];
-//                range[0][0]+=x1Step
-//                range[0][1]+=y1Step
-//                range[1][0]+=x1Step
-//                range[1][1]+=y1Step
+////                range[0][0]+=plot.coordsOfMovement[0];
+////                range[0][1]+=plot.coordsOfMovement[1];
+////                range[1][0]+=plot.coordsOfMovement[0];
+////                range[1][1]+=plot.coordsOfMovement[1];
 ////                plot.coordsOnPressed =  plot.coordsOnReleased
-//                plot.requestPaint();
-//            }
-
-//       }
-      }
-      Slider {
-          id: zoomLevelControl
-          minimumValue: 1
-          maximumValue: 20
-          value: 10
-          highlighted: true
-          handleVisible: true
-          anchors.left: parent.left
-          anchors.bottom: parent.bottom
-          anchors.right: parent.right
-          stepSize: 1
-onPressAndHold: console.log("HEY232")
-onPressed: console.log("HEY21")
-onSliderValueChanged: {
-//    [-1*value,(-1)*zoomLevel*screenCoefficient],[zoomLevel,zoomLevel*screenCoefficient]];
-    range[0][0]=-1*value;
-    range[0][1]=(-1)*value*screenCoefficient;
-    range[1][0]=value;
-    range[1][1]=value*screenCoefficient;
-//    plot.coordsOnPressed =  plot.coordsOnReleased
-    plot.requestPaint();
-    console.log("poni")}
-      }
+////                plot.requestPaint();
+////            }
+////        }
+//      }
     }
 
-}
+   }

@@ -502,10 +502,9 @@ Item {
                     console.log("Expression parts length = "+expressionParts.length+"expressions="+expressionParts[i]);
                     expression=expression+expressionParts[i];
 
-                }/*
+                }
                 history.push("\n"+expression+"\n");
-                console.log("hist = "+history.length)*/
-                app.calculator.graphHistory(expression);
+                console.log("hist = "+history.length)
                 pageStack.push(Qt.resolvedUrl("../pages/Graph.qml"),{expression1:expression});
                 expression="y=";
             }
