@@ -2,14 +2,12 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "../assets"
 
-//import "../../js/Calculator.js" as Calculator
-
 Page {
     id: page1
+    objectName: "History"
+
     allowedOrientations: Orientation.All
 
-    property var calculator
-//     property var historyAr
     PageHeader {
         id: header
         title: qsTr("History")
@@ -22,7 +20,7 @@ Page {
     }
     Label{
         id: noHistory
-        visible: history.length=0
+        visible: app.history.count === 0
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         color: Theme.secondaryHighlightColor
@@ -37,62 +35,43 @@ Page {
                 onClicked: clearHistory()
             }
         }
-        visible: page1.calculator.countOfOperations!==0
+        visible: app.calculator.countOfOperations!==0
         width: parent.width;
         height: parent.height
-        model: ListModel {
-           id: historyModel
-           ListElement { name: "test1"; value: "history" }
-        }
+        model: app.history
         header: PageHeader{ title: qsTr("History") }
         delegate: Item {
             width: parent.width
             height: Theme.itemSizeMedium
-            Label {
-                text: value
-                font.pixelSize: Theme.fontSizeMedium
+            Column{
                 anchors {
                     left: parent.left
                     right: parent.right
                     margins: Theme.paddingLarge
                 }
+                Label {
+                    width: parent.width
+                    text: expression
+                    font.pixelSize: Theme.fontSizeMedium
+                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                }
+                Label {
+                    width: parent.width
+                    text: ' = ' + result
+                    font.pixelSize: Theme.fontSizeLarge
+                }
             }
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    pageStack.navigateBack({value: page1.calculator.parseValue(list.model.get(index).value)});
+                    pageStack.navigateBack({value: app.calculator.parseValue(list.model.get(index).value)});
                 }
             }
         }
     }
-        Component.onCompleted: {}
-//            page1.calculator.setDisplay(displayP)
-//            displayP.update(page1.calculator.stringExpression, page1.calculator.result)
 
-//            history.push("\n"+"expression"+"\n");
-//            console.log("hist = "+history.length)
 
-//            console.log(" c l = "+history.length+" "+page1.calculator.getLength());
-//            for(var i=0;i<history.length;i++) {
-//                console.log("h= "+history[i]);
-//                var element = { "value" : qsTr("%1").arg(history[i]) }
-//                historyModel.append(element)
-//            }
-//        }
-
-        function update(){
-           console.log("hfghfg= "+ history.length)
-            for(var i=0;i<history.length;i++) {
-                console.log("h= "+history[i]);
-                var element = { "value" : qsTr("%1").arg(history[i]) }
-                historyModel.append(element)
-            }
-            console.log("history", page1.calculator.getLength())
-        }
-
-//    function clearHistory(){
-//        page.history.countOfOperations = 0;
-//        page.history.history = [];
-//        page.history.clearHistory();
-//    }
+    function clearHistory(){
+        app.history.clear()
+    }
 }

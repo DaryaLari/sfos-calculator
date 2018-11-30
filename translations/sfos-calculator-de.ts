@@ -4,19 +4,7 @@
 <context>
     <name>BasicModePage</name>
     <message>
-        <source>History</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Basic Mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Engineering mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Build a graph</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -98,8 +86,23 @@
         <source>Clear history</source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>Menu</name>
     <message>
-        <source>%1</source>
+        <source>Engineering mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Build a graph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>History</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Basic mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

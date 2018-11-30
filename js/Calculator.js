@@ -1,9 +1,15 @@
 var stringExpression = '0'
 var result = ''
 var isDecimal = false // current number has dot already
-//var isDeg = true // degrees, else radians
 
-var bracketsOpened = 0
+function countBracket(br){
+    var count = 0
+    for(var i = 0; i < stringExpression.length; i++){
+        if(stringExpression[i] === br)
+         count ++
+    }
+    return count
+}
 
 var display = null
 
@@ -16,12 +22,10 @@ function deg(){
     if(result !== '' || stringExpression === '0'){
         stringExpression = 'deg('
         result = ''
-        bracketsOpened ++
     }
     else{
         if('+-*/('.indexOf(stringExpression.slice(-1)) !== -1){
             stringExpression += 'deg('
-            bracketsOpened ++
         }
     }
     display.update(stringExpression, result)
@@ -83,7 +87,7 @@ function power(p){
         result = ''
     }
     else{
-        if('0123456789)%!'.indexOf(stringExpression.slice(-1)) != -1){ // ends with number
+        if('0123456789)%!eπ'.indexOf(stringExpression.slice(-1)) != -1){ // ends with number
             stringExpression += '^'
             if(p !== '1')
                 stringExpression += '(' + p + ')'
@@ -107,6 +111,7 @@ function dot(){
                 stringExpression += '.'
 //            isDecimal = true
         }
+
         else
             if('+-*/'.indexOf(stringExpression.slice(-1)) != -1){ // ends with operator
                 stringExpression += '0.'
@@ -126,7 +131,7 @@ function operation(op){
             stringExpression = op
         }
         else{
-            if('0123456789)%'.indexOf(stringExpression.slice(-1)) != -1){
+            if('0123456789)%!eπ'.indexOf(stringExpression.slice(-1)) != -1){
                 stringExpression += op
                 isDecimal = false
             }
@@ -151,13 +156,11 @@ function prefixOperation(op){
     if(result !== '' || stringExpression === '0'){
         stringExpression = op + '('
         result = ''
-        bracketsOpened ++
     }
     else{
         if('(+-*/^'.indexOf(stringExpression.slice(-1)) != -1){
             stringExpression += op + '('
             isDecimal = false
-            bracketsOpened ++
         }
     }
     display.update(stringExpression, result)
@@ -181,19 +184,14 @@ function bracket(br){
     if((result !== '' || stringExpression === '0') && br === '('){
         stringExpression = '('
         result = ''
-        bracketsOpened = 1
     }
     else{
-        if('+-*/(^'.indexOf(stringExpression.slice(-1)) != -1// ends with operator
-                && br === '('){
+        if('+-*/(^'.indexOf(stringExpression.slice(-1)) != -1 && br === '('){
             stringExpression += '('
-            bracketsOpened ++
         }
         else
-            if('0123456789πe)'.indexOf(stringExpression.slice(-1)) != -1
-                    && br === ')' && bracketsOpened > 0){
+            if('0123456789πe)'.indexOf(stringExpression.slice(-1)) != -1 && br === ')' && ((countBracket('(') - countBracket(')')) > 0)){
                 stringExpression += ')'
-                bracketsOpened --
             }
     }
     display.update(stringExpression, result)
@@ -201,8 +199,6 @@ function bracket(br){
 
 function del(){
     if('0123456789πe)+-*/%!^.'.indexOf(stringExpression.slice(-1)) != -1){
-        if(stringExpression.slice(-1) === ')')
-            bracketsOpened ++
         stringExpression = stringExpression.slice(0, -1)
     }
     else{
@@ -212,21 +208,16 @@ function del(){
            stringExpression.slice(-4) === 'deg('
         ){
             stringExpression = stringExpression.slice(0, -4)
-            bracketsOpened --
         }
         else if(stringExpression.slice(-3) === 'lg(' ||
            stringExpression.slice(-3) === 'ln('
         ){
             stringExpression = stringExpression.slice(0, -3)
-            bracketsOpened --
         }
         else if(stringExpression.slice(-2) === '√('){
             stringExpression = stringExpression.slice(0, -2)
-            bracketsOpened --
         }
         else{
-            if(stringExpression.slice(-1) === '(')
-                bracketsOpened --
             stringExpression = stringExpression.slice(0, -1)
         }
     }
@@ -242,6 +233,7 @@ function delPart(part){
 
 function ac(){
     stringExpression = '0'
+    result = '0'
     display.update(stringExpression, result)
 }
 
@@ -338,44 +330,39 @@ function powerToFunction(expr){
 function calcResult(){
     while('('.indexOf(stringExpression.slice(-1)) !== -1){
         stringExpression = stringExpression.slice(0, -1)
-        bracketsOpened --
     }
 
     if('+-*/.'.indexOf(stringExpression.slice(-1)) != -1){ // ends with operator
         stringExpression = stringExpression.slice(0, -1)
     }
-    for(bracketsOpened; bracketsOpened > 0; bracketsOpened--)
+    while((countBracket('(') - countBracket(')')) > 0)
         stringExpression += ')'
-    bracketsOpened = 0
     isDecimal = false
     var expr = stringExpression
-    expr = expr.replace('deg', '(Math.PI / 180)*')
-    expr = expr.replace('%', '*0.01')
-    expr = expr.replace('π', 'Math.PI')
-    expr = expr.replace('e', 'Math.E')
-    expr = expr.replace('ln', 'Math.log')
-    expr = expr.replace('lg', 'Math.log10')
-    expr = expr.replace('√', 'Math.sqrt')
-    expr = expr.replace('sin', 'Math.sin')
-    expr = expr.replace('cos', 'Math.cos')
-    expr = expr.replace('tan', 'Math.tan')
+    expr = expr.replace(/deg/g, '(Math.PI / 180)*')
+    expr = expr.replace(/%/g, '*0.01')
+    expr = expr.replace(/π/g, 'Math.PI')
+    expr = expr.replace(/e/g, 'Math.E')
+    expr = expr.replace(/ln/g, 'Math.log')
+    expr = expr.replace(/lg/g, 'Math.log10')
+    expr = expr.replace(/√/g, 'Math.sqrt')
+    expr = expr.replace(/sin/g, 'Math.sin')
+    expr = expr.replace(/cos/g, 'Math.cos')
+    expr = expr.replace(/tan/g, 'Math.tan')
 
-    expr = factorialToFunction(expr)
-    expr = powerToFunction(expr)
+    try{
+        expr = factorialToFunction(expr)
+        expr = powerToFunction(expr)
 
-    console.log(expr)
-    result = eval(expr)
+        console.log(expr)
+        result = eval(expr)
+
+    }catch(error){
+        console.log(error)
+        result = 'unknown error'
+    }
     display.update(stringExpression, result)
 
 
-    history.push("result.toString()");
-    console.log("hist = "+history.length)
-}
-
-function getLength(){
-    return history.length
-}
-
-function getHistory(i){
-    return history[i];
+    app.history.append({expression: stringExpression, result: result});
 }

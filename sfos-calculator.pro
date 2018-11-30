@@ -40,7 +40,8 @@ DISTFILES += qml/sfos-calculator.qml \
     qml/assets/GraphCanvas.qml\
     qml/pages/d3.js \
     js/states.js \
-    qml/assets/historyDisplay.qml
+    qml/assets/historyDisplay.qml \
+    qml/assets/Menu.qml
 
 OTHER_FILES += js/*
 js.files = js/*
