@@ -43,12 +43,15 @@ Page {
         delegate: Item {
             width: parent.width
             height: Theme.itemSizeMedium
+
             Column{
+
                 anchors {
                     left: parent.left
                     right: parent.right
                     margins: Theme.paddingLarge
                 }
+
                 Label {
                     width: parent.width
                     text: expression
@@ -56,10 +59,13 @@ Page {
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                 }
                 Label {
+                    visible: result!=null
                     width: parent.width
                     text: ' = ' + result
                     font.pixelSize: Theme.fontSizeLarge
+
                 }
+
             }
             MouseArea {
                 anchors.fill: parent
@@ -67,6 +73,7 @@ Page {
                     pageStack.navigateBack({value: app.calculator.parseValue(list.model.get(index).value)});
                 }
             }
+
         }
     }
 
