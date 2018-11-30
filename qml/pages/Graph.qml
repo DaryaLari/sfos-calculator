@@ -109,8 +109,8 @@ Page {
             var sectionSize = width / sections;
             var plotStepSize = (maxX - minX) / sections;
             for (var i = 1; i < sections; i++) {
-                line([[sectionSize * i , -10],
-                      [sectionSize * i , 10]])
+                line([[sectionSize * i , -height/2],
+                      [sectionSize * i , height/2]])
                 // Decimal points should be configured with dependency on max - min interval length
                 var text = (minX + plotStepSize * i).toFixed(1).toString();
                 context.fillText(text, sectionSize * i -
@@ -131,8 +131,8 @@ Page {
             var sectionSize = height/ sections;
             var plotStepSize = (maxY - minY) / sections;
             for (var i = 1; i < sections; i++) {
-                line([[width/2-10, sectionSize * i],
-                      [width/2+10, sectionSize * i]])
+                line([[0, sectionSize * i],
+                      [width, sectionSize * i]])
                 // Decimal points should be configured with dependency on max - min interval length
                 var text = (minY + plotStepSize * i).toFixed(1).toString();
                 context.fillText(text, width/2+20, yLine(sectionSize * i  - 10));
