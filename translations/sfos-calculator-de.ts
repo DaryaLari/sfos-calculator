@@ -27,17 +27,6 @@
     </message>
 </context>
 <context>
-    <name>DisplayGraph</name>
-    <message>
-        <source>f(x)=%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>EngineeringModePage</name>
     <message>
         <source>Engineering Mode</source>
