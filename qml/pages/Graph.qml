@@ -269,58 +269,58 @@ visible: !mistake
 //          console.log(points.length)
           return points;
       }
-//      Item {
-//          id:zoom
-//          anchors.fill: plot
-//          //processing pinch gesture
-//        PinchArea{
-//            id: pinchArea
-//            property real minScale: 0.5
-//            property real maxScale: 1.0
-//            anchors.fill: parent
-//            pinch.target: zoom
-//            pinch.minimumScale: minScale * 0.5
-//            pinch.maximumScale: maxScale * 1.5
-//            //The commented code below - fire exit
-//            onPinchFinished: {
-//                                console.log(zoom.scale)
-//                                if (zoom.scale <= 1)
-//                                    plot.changeZoomPlus(Math.round(zoom.scale));
-//                                else
-//                                    plot.changeZoomMinus(Math.round(zoom.scale*10));
-//                zoom.scale = 1;
-//            }
-//            onPinchUpdated: {
-//                if (zoom.scale >= 1)
-//                    plot.changeZoomPlus(roundOfNum(zoom.scale));
-//                else
-//                    plot.changeZoomMinus(roundOfNum(zoom.scale));
-//            }
+      Item {
+          id:zoom
+          anchors.fill: plot
+          //processing pinch gesture
+        PinchArea{
+            id: pinchArea
+            property real minScale: 0.5
+            property real maxScale: 1.0
+            anchors.fill: parent
+            pinch.target: zoom
+            pinch.minimumScale: minScale * 0.5
+            pinch.maximumScale: maxScale * 1.5
+            //The commented code below - fire exit
+            onPinchFinished: {
+                                console.log(zoom.scale)
+                                if (zoom.scale <= 1)
+                                    plot.changeZoomPlus(Math.round(zoom.scale));
+                                else
+                                    plot.changeZoomMinus(Math.round(zoom.scale*10));
+                zoom.scale = 1;
+            }
+            onPinchUpdated: {
+                if (zoom.scale >= 1)
+                    plot.changeZoomPlus(roundOfNum(zoom.scale));
+                else
+                    plot.changeZoomMinus(roundOfNum(zoom.scale));
+            }
 
-//            Rectangle {
-//                opacity: 0.0
-//                anchors.fill: parent
+            Rectangle {
+                opacity: 0.0
+                anchors.fill: parent
+            }
+        }
+        //processing moving
+//        MouseArea {
+//            id: inputArea
+//            anchors.fill: parent
+//            onPressed: {
+//                plot.coordsOnPressed = [mouse.x,mouse.y];
+//            }
+//            onPositionChanged: {
+//                plot.coordsOnReleased = [mouse.x,mouse.y];
+//                plot.coordsOfMovement = [Math.round((plot.coordsOnPressed[0]-plot.coordsOnReleased[0])/100),Math.round((plot.coordsOnReleased[1]-plot.coordsOnPressed[1])/100)];
+//                range[0][0]+=plot.coordsOfMovement[0];
+//                range[0][1]+=plot.coordsOfMovement[1];
+//                range[1][0]+=plot.coordsOfMovement[0];
+//                range[1][1]+=plot.coordsOfMovement[1];
+//                plot.coordsOnPressed =  plot.coordsOnReleased
+//                plot.requestPaint();
 //            }
 //        }
-//        //processing moving
-////        MouseArea {
-////            id: inputArea
-////            anchors.fill: parent
-////            onPressed: {
-////                plot.coordsOnPressed = [mouse.x,mouse.y];
-////            }
-////            onPositionChanged: {
-////                plot.coordsOnReleased = [mouse.x,mouse.y];
-////                plot.coordsOfMovement = [Math.round((plot.coordsOnPressed[0]-plot.coordsOnReleased[0])/100),Math.round((plot.coordsOnReleased[1]-plot.coordsOnPressed[1])/100)];
-////                range[0][0]+=plot.coordsOfMovement[0];
-////                range[0][1]+=plot.coordsOfMovement[1];
-////                range[1][0]+=plot.coordsOfMovement[0];
-////                range[1][1]+=plot.coordsOfMovement[1];
-////                plot.coordsOnPressed =  plot.coordsOnReleased
-////                plot.requestPaint();
-////            }
-////        }
-//      }
+      }
     }
 
    }
