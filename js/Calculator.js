@@ -362,11 +362,13 @@ function calcResult(){
         result = 'unknown error'
     }
     display.update(stringExpression, result)
-
+if(result==='unknown error')stringExpression='u'+stringExpression
 
     app.history.append({expression: stringExpression, result: result});
 }
 
-function graphHistory(stringExpr){
-    app.history.append({expression: stringExpr, result: null });
+function graphHistory(stringExpr,res){
+    console.log(stringExpr+" "+res)
+    app.history.append({expression: stringExpr, result: res });
+
 }

@@ -15,9 +15,6 @@ Column {
     }
     function setResult(res){display.result = res}
     function setExpression(expr){display.expression = expr}
-//    function appendExpression(letter){display.expression += letter}
-//    function delLastExpressionLetters(n){display.expression = display.expression.substring(0, display.expression.length - 1 - n)}
-//    function clearExpression(){display.expression = ''}
 
     TextArea {
         id: expression

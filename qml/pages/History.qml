@@ -26,6 +26,7 @@ Page {
         color: Theme.secondaryHighlightColor
         font.pixelSize: Theme.fontSizeLarge
         text: qsTr("No data yet")
+
     }
     SilicaListView {
         id:list
@@ -35,14 +36,14 @@ Page {
                 onClicked: clearHistory()
             }
         }
-        visible: app.calculator.countOfOperations!==0
+        visible: app.calculator.count!==0
         width: parent.width;
         height: parent.height
         model: app.history
-        header: PageHeader{ title: qsTr("History") }
+        header: PageHeader{ title: qsTr(" ") }
         delegate: Item {
             width: parent.width
-            height: Theme.itemSizeMedium
+            height: Theme.itemSizeExtraLarge
 
             Column{
 
@@ -53,17 +54,18 @@ Page {
                 }
 
                 Label {
+                    id: expr1
                     width: parent.width
-                    text: expression
+                    text: expression.substring(0, 1)==='u'?expression.substring(1, expression.length):expression
                     font.pixelSize: Theme.fontSizeMedium
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+
                 }
                 Label {
-                    visible: result!=null
+                    visible: expression.substring(0, 1)!=='y'
                     width: parent.width
-                    text: ' = ' + result
-                    font.pixelSize: Theme.fontSizeLarge
-
+                    text: expression.substring(0, 1)==='u'?' = unknown error':' = ' + result
+                    font.pixelSize: Theme.fontSizeLarge   
                 }
 
             }

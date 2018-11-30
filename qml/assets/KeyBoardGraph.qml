@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import "../assets"
 import "../../js/states.js" as STATE
-import Sailfish.Silica 1.0
+//import Sailfish.Silica 1.0
 Item {
     id: keyBoardGraph
     property string expression: 'y='
@@ -27,7 +27,7 @@ Item {
             id: btnXPow; text: "x^a";
             onClicked:  {
 
-                keyBoardGraph.calculator.inputNum1("x^(");
+                app.calculator.inputNum1("x^(");
                  expressionParts.push("Math.pow(x,");
                 expressionPartsButtonText.push("x^(");
                 unclosedBrackets++;
@@ -46,7 +46,7 @@ Item {
                if(powerClicks==1){
                    textBig=true;
                    text="start \n degree";
-                   keyBoardGraph.calculator.inputNum1("(");
+                   app.calculator.inputNum1("(");
                     expressionParts.push("Math.pow(");
                    expressionPartsButtonText.push("(");
                    STATE.pushComplexOperation();
@@ -58,7 +58,7 @@ Item {
                if(powerClicks==2){
 
                    text="end \n input";
-                   keyBoardGraph.calculator.inputNum1(")^(");
+                   app.calculator.inputNum1(")^(");
                     expressionParts.push(",");
                    expressionPartsButtonText.push(")^(");
                    STATE.pushComplexOperation();
@@ -70,7 +70,7 @@ Item {
                if(powerClicks==3){
                    textBig=false;
                    text="a^b";powerClicks=0;
-                   keyBoardGraph.calculator.inputNum1(")");
+                   app.calculator.inputNum1(")");
                     expressionParts.push(")");
                    expressionPartsButtonText.push(")");
                    STATE.pushConst();
@@ -83,7 +83,7 @@ Item {
         KeyBrdBtn {
             id: btnSin; text: "sin";
             onClicked: {
-                keyBoardGraph.calculator.inputNum1(this.text+"(");
+                app.calculator.inputNum1(this.text+"(");
                 expressionParts.push("Math.sin(");
                 expressionPartsButtonText.push(this.text+"(");
                 unclosedBrackets++;
@@ -96,7 +96,7 @@ Item {
         KeyBrdBtn {
             id: btnCos; text: "cos";
             onClicked: {
-                keyBoardGraph.calculator.inputNum1(this.text+"(");
+                app.calculator.inputNum1(this.text+"(");
                   expressionParts.push("Math.cos(");
                 expressionPartsButtonText.push(this.text+"(");
                 unclosedBrackets++;
@@ -110,7 +110,7 @@ Item {
         KeyBrdBtn {
             id: btnTan; text: "tan";
             onClicked: {
-                keyBoardGraph.calculator.inputNum1(this.text+"(");
+                app.calculator.inputNum1(this.text+"(");
                    expressionParts.push("Math.tan(");
                 expressionPartsButtonText.push(this.text+"(");
                 unclosedBrackets++;
@@ -123,7 +123,7 @@ Item {
         KeyBrdBtn {
             id: btnE; text: "e";
             onClicked:  {
-                keyBoardGraph.calculator.inputNum1(this.text);
+                app.calculator.inputNum1(this.text);
             expressionParts.push("Math.E");
                     expressionPartsButtonText.push(this.text);
                 STATE.pushConst();
@@ -135,7 +135,7 @@ Item {
             id: btnLg2x; text: "log2(a)";
             textBig:true;
             onClicked: {
-                keyBoardGraph.calculator.inputNum1("log2(");
+                app.calculator.inputNum1("log2(");
                     expressionParts.push("log2x(");
                 expressionPartsButtonText.push("log2(");
                 unclosedBrackets++;
@@ -150,7 +150,7 @@ Item {
         KeyBrdBtn {
             id: btnLn; text: "ln";
             onClicked:  {
-                keyBoardGraph.calculator.inputNum1(this.text+"(");
+                app.calculator.inputNum1(this.text+"(");
              expressionParts.push("Math.log(");
                 expressionPartsButtonText.push(this.text+"(");
                 unclosedBrackets++;
@@ -166,7 +166,7 @@ Item {
         KeyBrdBtn {
             id: btnBracketFirst; text: "(";
             onClicked:  {
-                keyBoardGraph.calculator.inputNum1(this.text);
+                app.calculator.inputNum1(this.text);
              expressionParts.push(this.text);
                 expressionPartsButtonText.push(this.text);
                   unclosedBrackets++;
@@ -181,7 +181,7 @@ Item {
             onClicked:  {
                 if(unclosedBrackets>0)unclosedBrackets--;
 
-                keyBoardGraph.calculator.inputNum1(this.text);
+                app.calculator.inputNum1(this.text);
             expressionParts.push(this.text);
                     expressionPartsButtonText.push(this.text);
                   STATE.pushConst();
@@ -195,7 +195,7 @@ Item {
             id: btnRoot; text: "√";
             onClicked: {
 
-                keyBoardGraph.calculator.inputNum1(this.text+"(");
+                app.calculator.inputNum1(this.text+"(");
               expressionParts.push("Math.sqrt(");
                 expressionPartsButtonText.push(this.text+"(");
                 unclosedBrackets++;
@@ -207,7 +207,7 @@ Item {
             id: btnAbs; text: "|a|";
             onClicked: {
 
-                keyBoardGraph.calculator.inputNum1("module(");
+                app.calculator.inputNum1("module(");
               expressionParts.push("Math.abs(");
                 expressionPartsButtonText.push("module(");
                 unclosedBrackets++;
@@ -222,7 +222,7 @@ Item {
                 powerClicks=0;
                 btnPow.text="a^b";
 //btnC.isEnable=true;
-                keyBoardGraph.calculator.ac();
+                app.calculator.ac();
             expression='y=';
                 while(expressionParts.length>0)
                 expressionParts.pop();
@@ -257,7 +257,7 @@ Item {
         KeyBrdBtn { id: btnDiv; text: "\u00F7";
             onClicked:             {
                 STATE.pushOperation();
-                keyBoardGraph.calculator.inputNum1("/");
+                app.calculator.inputNum1("/");
                 expressionParts.push("/");
                 expressionPartsButtonText.push("/");
                  operationStack.push("STATE.pushOperation()");
@@ -268,7 +268,7 @@ Item {
             id: btnMult; text: "*";
             onClicked:{
                  STATE.pushOperation();
-                keyBoardGraph.calculator.inputNum1(this.text);
+                app.calculator.inputNum1(this.text);
                 expressionParts.push(this.text);
                 expressionPartsButtonText.push(this.text);
                 operationStack.push("STATE.pushOperation()");
@@ -280,7 +280,7 @@ Item {
 
             onClicked: {
 
-                keyBoardGraph.calculator.inputNum1(this.text+"(");
+                app.calculator.inputNum1(this.text+"(");
               expressionParts.push("sFact(");
                 expressionPartsButtonText.push(this.text+"(");
                 unclosedBrackets++;
@@ -294,7 +294,7 @@ Item {
             id: btn1; text: "1";
             onClicked: {
                 STATE.pushNumber();
-                keyBoardGraph.calculator.inputNum1(this.text);
+                app.calculator.inputNum1(this.text);
                 expressionParts.push(this.text);
                 expressionPartsButtonText.push(this.text);
                 operationStack.push("STATE.pushNumber()");
@@ -305,7 +305,7 @@ Item {
         KeyBrdBtn { id: btn2; text: "2";
             onClicked: {
                 STATE.pushNumber();
-                keyBoardGraph.calculator.inputNum1(this.text);
+                app.calculator.inputNum1(this.text);
                 expressionParts.push(this.text);
                 expressionPartsButtonText.push(this.text);
                 operationStack.push("STATE.pushNumber()");
@@ -317,7 +317,7 @@ Item {
             id: btn3; text: "3";
                         onClicked: {
                             STATE.pushNumber();
-                            keyBoardGraph.calculator.inputNum1(this.text);
+                            app.calculator.inputNum1(this.text);
                             expressionParts.push(this.text);
                             expressionPartsButtonText.push(this.text);
                             operationStack.push("STATE.pushNumber()");
@@ -328,7 +328,7 @@ Item {
             id: btnMinus; text: "-";
             onClicked:  {
                  STATE.pushOperation();
-                keyBoardGraph.calculator.inputNum1(this.text);
+                app.calculator.inputNum1(this.text);
                 expressionParts.push(this.text);
                 expressionPartsButtonText.push(this.text);
                 operationStack.push("STATE.pushOperation()");
@@ -338,7 +338,7 @@ Item {
         KeyBrdBtn {
             id: btnODX; text: "1/x";
             onClicked:  {
-                keyBoardGraph.calculator.inputNum1(this.text);
+                app.calculator.inputNum1(this.text);
             expressionParts.push(this.text);
                     expressionPartsButtonText.push(this.text);
                 STATE.pushConst()
@@ -351,7 +351,7 @@ Item {
             id: btn4; text: "4";
             onClicked: {
                 STATE.pushNumber();
-                keyBoardGraph.calculator.inputNum1(this.text);
+                app.calculator.inputNum1(this.text);
                 expressionParts.push(this.text);
                 expressionPartsButtonText.push(this.text);
                 operationStack.push("STATE.pushNumber()");
@@ -362,7 +362,7 @@ Item {
             id: btn5; text: "5";
             onClicked: {
                 STATE.pushNumber();
-                keyBoardGraph.calculator.inputNum1(this.text);
+                app.calculator.inputNum1(this.text);
                 expressionParts.push(this.text);
                 expressionPartsButtonText.push(this.text);
                 operationStack.push("STATE.pushNumber()");
@@ -373,7 +373,7 @@ Item {
             id: btn6; text: "6";
             onClicked: {
                 STATE.pushNumber();
-                keyBoardGraph.calculator.inputNum1(this.text);
+                app.calculator.inputNum1(this.text);
                 expressionParts.push(this.text);
                 expressionPartsButtonText.push(this.text);
                 operationStack.push("STATE.pushNumber()");
@@ -384,7 +384,7 @@ Item {
             id: btnPlus; text: "+";
             onClicked:  {
                 STATE.pushOperation();
-                keyBoardGraph.calculator.inputNum1(this.text);
+                app.calculator.inputNum1(this.text);
                 expressionParts.push(this.text);
                 expressionPartsButtonText.push(this.text);
                 operationStack.push("STATE.pushOperation()");
@@ -398,7 +398,7 @@ Item {
             onClicked:  {
 
             expressionParts.push("Math.PI");
-                keyBoardGraph.calculator.inputNum1(this.text);
+                app.calculator.inputNum1(this.text);
                     expressionPartsButtonText.push(this.text);
                 STATE.pushConst();
                  operationStack.push("STATE.pushConst()");
@@ -408,7 +408,7 @@ Item {
             id: btn7; text: "7";
             onClicked: {
                 STATE.pushNumber();
-                keyBoardGraph.calculator.inputNum1(this.text);
+                app.calculator.inputNum1(this.text);
                 expressionParts.push(this.text);
                 expressionPartsButtonText.push(this.text);
                 operationStack.push("STATE.pushNumber()");
@@ -419,7 +419,7 @@ Item {
             id: btn8; text: "8";
             onClicked: {
                 STATE.pushNumber();
-                keyBoardGraph.calculator.inputNum1(this.text);
+                app.calculator.inputNum1(this.text);
                 expressionParts.push(this.text);
                 expressionPartsButtonText.push(this.text);
                 operationStack.push("STATE.pushNumber()");
@@ -430,7 +430,7 @@ Item {
             id: btn9; text: "9";
             onClicked: {
                 STATE.pushNumber();
-                keyBoardGraph.calculator.inputNum1(this.text);
+                app.calculator.inputNum1(this.text);
                 expressionParts.push(this.text);
                 expressionPartsButtonText.push(this.text);
                 operationStack.push("STATE.pushNumber()");
@@ -441,7 +441,7 @@ Item {
                 id: btnX; text: "x";
                 onClicked: {
 
-                    keyBoardGraph.calculator.inputNum1(this.text);
+                    app.calculator.inputNum1(this.text);
                 expressionParts.push(this.text);
                         expressionPartsButtonText.push(this.text);
                     STATE.pushConst();
@@ -451,7 +451,7 @@ Item {
         KeyBrdBtn {
             id: btnExp; text: "e^a";
             onClicked: {
-                keyBoardGraph.calculator.inputNum1("e^(");
+                app.calculator.inputNum1("e^(");
            expressionParts.push("Math.exp(");
                 expressionPartsButtonText.push("e^(");
                 unclosedBrackets++;
@@ -464,7 +464,7 @@ Item {
              textBig:true;
             onClicked: {
 
-                keyBoardGraph.calculator.inputNum1("log2(e)");
+                app.calculator.inputNum1("log2(e)");
             expressionParts.push("Math.LOG2E");
                     expressionPartsButtonText.push("log2(e)");
                 STATE.pushConst();
@@ -476,7 +476,7 @@ Item {
             id: btn0; text: "0";
             onClicked:             {
                 STATE.pushNumber();
-                keyBoardGraph.calculator.inputNum1(this.text);
+                app.calculator.inputNum1(this.text);
                 expressionParts.push(this.text);
                 expressionPartsButtonText.push(this.text);
                 operationStack.push("STATE.pushNumber()");
@@ -487,7 +487,7 @@ Item {
             id: btnDot; text: ".";
             onClicked: {
                 STATE.pushDot();
-                keyBoardGraph.calculator.inputNum1(this.text);
+                app.calculator.inputNum1(this.text);
                 expressionParts.push(this.text);
                 expressionPartsButtonText.push(this.text);
                 operationStack.push("STATE.pushDot()");
@@ -499,13 +499,10 @@ Item {
 
             onClicked: {
                 for(var i=0;i<expressionParts.length;i++){
-                    console.log("Expression parts length = "+expressionParts.length+"expressions="+expressionParts[i]);
                     expression=expression+expressionParts[i];
 
-                }/*
-                history.push("\n"+expression+"\n");
-                console.log("hist = "+history.length)*/
-                app.calculator.graphHistory(expression);
+                }
+                app.calculator.graphHistory(expression,null);
                 pageStack.push(Qt.resolvedUrl("../pages/Graph.qml"),{expression1:expression});
                 expression="y=";
             }

@@ -29,11 +29,11 @@
 <context>
     <name>DisplayGraph</name>
     <message>
-        <source>f(x)=%1</source>
+        <source>%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1</source>
+        <source>f(x)=%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -88,6 +88,10 @@
     </message>
     <message>
         <source>Clear history</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> </source>
         <translation type="unfinished"></translation>
     </message>
 </context>

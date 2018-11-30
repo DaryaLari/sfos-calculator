@@ -43,24 +43,6 @@ Page {
             height: parent.height - displayP.height
         }
     }
-
-//    Row {
-//        visible: isLandscape
-
-//        width: parent.width
-//        height: parent.height - header.height
-//        anchors.top: header.bottom
-
-//        Display {
-//            id: displayL
-//            width: parseInt(parent.width)
-//        }
-
-//        KeyBoard {
-//            width: parseInt(parent.width)
-//            height: parent.height
-//        }
-//    }
     Component.onCompleted: {
         app.calculator.setDisplay(displayP)
         displayP.update(app.calculator.stringExpression, app.calculator.result)

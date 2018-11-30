@@ -5,25 +5,36 @@ Item {
         MenuItem{
             visible: pageStack.currentPage.objectName !== "BasicModePage"
             text: qsTr("Basic mode")
-            onClicked: {pageStack.replace(Qt.resolvedUrl("../pages/BasicModePage.qml"), {});
+            onClicked: {
+                 app.calculator.stringExpression = '0'
+                app.calculator.result = '';
+                pageStack.replace(Qt.resolvedUrl("../pages/BasicModePage.qml"), {});
             config.value="basic"
                config.sync()
             }
+
         }
         MenuItem{
             visible: pageStack.currentPage.objectName !== 'EngineeringModePage'
             text: qsTr("Engineering mode")
             onClicked: {
+                app.calculator.stringExpression = '0'
+               app.calculator.result = '';
                 pageStack.replace(Qt.resolvedUrl("../pages/EngineeringModePage.qml"), {});
                 config.value="engineering";
+                config.sync()
             }
         }
         MenuItem{
             visible: pageStack.currentPage.objectName !== "GraphBuilder"
             text: qsTr("Build a graph")
             onClicked: {
+                app.calculator.stringExpression = '';
+               app.calculator.result = '';
                 pageStack.replace(Qt.resolvedUrl("../pages/GraphBuilder.qml"));
                 config.value="graph";
+                config.sync()
+
             }
         }
         MenuItem{
